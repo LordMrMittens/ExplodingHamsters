@@ -1,0 +1,210 @@
+[
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTService_CheckIsGrabbed.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTService_CheckIsGrabbed.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTTask_FindNewLocation.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTTask_FindNewLocation.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\DepositBoxTrigger.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\DepositBoxTrigger.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamsters.Build.cs",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamsters.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamsters.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamstersGM.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamstersGM.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamstersGameModeBase.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamstersGameModeBase.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\Explosive.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\Explosive.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\HamAIController.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\HamAIController.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\Hamster.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\Hamster.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\HamsterEnums.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\HamsterSpawner.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\HamsterSpawner.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\PlayerPawn.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\PlayerPawn.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ToDelete.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\ToDelete.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	}
+]

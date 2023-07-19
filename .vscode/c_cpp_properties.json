@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "ExplodingHamstersEditor Editor Win64 Development (ExplodingHamsters)",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64",
+            "configurationProvider": "epic.ue",
+            "compileCommands": "E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_ExplodingHamsters.json"
+        },
+        {
+            "name": "Win32",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64",
+            "configurationProvider": "epic.ue",
+            "compileCommands": "E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_Default.json"
+        }
+    ],
+    "version": 4
+}
