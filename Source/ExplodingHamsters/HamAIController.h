@@ -25,18 +25,13 @@ public:
 	FVector MaxBounds;
 
 protected:
-	virtual void OnPossess(APawn *InPawn) override;
-	
 	virtual void BeginPlay() override;
-	UPROPERTY(EditAnywhere, Category = "Parameters")
-	class UBehaviorTree *BehaviorTree;
-
-	UPROPERTY(EditAnywhere, Category = "Parameters")
-	class UBlackboardData *BlackboardData;
 
 private:
-	// FVector GetRandomLocationNearby();
-	UBlackboardComponent *BlackboardComponent;
+	//FVector GetRandomLocationNearby();
+
+	UPROPERTY(EditAnywhere, Category = "Parameters")
+	class UBehaviorTree* BehaviorTree;
 
 	UPROPERTY(VisibleAnywhere, Category = "Parameters")
 	APawn *AIPawn;
