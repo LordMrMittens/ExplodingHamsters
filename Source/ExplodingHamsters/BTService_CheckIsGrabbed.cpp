@@ -17,8 +17,6 @@ void UBTService_CheckIsGrabbed::OnBecomeRelevant(UBehaviorTreeComponent &OwnerCo
     Super::OnBecomeRelevant(OwnerComp, NodeMemory);
     HamPawn = OwnerComp.GetAIOwner()->GetPawn();
     Hamster = Cast<AHamster>(HamPawn);
-
-
 }
 
 void UBTService_CheckIsGrabbed::TickNode(UBehaviorTreeComponent &OwnerComp, uint8 *NodeMemory, float DeltaSeconds)

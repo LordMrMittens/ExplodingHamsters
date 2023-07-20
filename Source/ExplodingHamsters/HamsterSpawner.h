@@ -7,6 +7,7 @@
 #include "HamsterSpawner.generated.h"
 
 class AHamster;
+class AHamAIController;
 
 UCLASS()
 class EXPLODINGHAMSTERS_API AHamsterSpawner : public AActor
@@ -45,5 +46,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Spawning | Prefab")
 	TSubclassOf<AHamster> HamsterClass;
+	UPROPERTY(EditAnywhere, Category="Spawning | Prefab")
+	TSubclassOf<AHamAIController> HamsterAIClass;
     
 };

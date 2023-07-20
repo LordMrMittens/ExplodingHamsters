@@ -4,6 +4,7 @@
 #include "HamsterSpawner.h"
 #include "Kismet/GameplayStatics.h"
 #include "Hamster.h"
+#include "HamAIController.h"
 
 #define ENUM_LENGTH(EnumType) (static_cast<int32>(EnumType::EnumCount))
 
@@ -51,6 +52,15 @@ void AHamsterSpawner::SpawnHamster()
 		int32 RandomColourIndex = FMath::RandRange(0, ColourLength - 1);
 		HamsterColour = static_cast<EHamsterEnums>(RandomColourIndex);
 		Hamster->SetHamsterColour(HamsterColour);
+
+		AHamAIController* AIController = Cast<AHamAIController>(GetWorld()->SpawnActor(HamsterAIClass));
+		if(AIController !=nullptr){
+			AIController->Possess(Hamster);
+			UE_LOG(LogTemp, Error, TEXT("AI %s, Has possessed< %s"), *AIController->GetActorNameOrLabel(), *Hamster->GetActorNameOrLabel());
+		} else{
+			UE_LOG(LogTemp, Error, TEXT("No AI Controller"));
+		}
+
 		UGameplayStatics::FinishSpawningActor(Hamster, SpawnTransForm);
 	}
 

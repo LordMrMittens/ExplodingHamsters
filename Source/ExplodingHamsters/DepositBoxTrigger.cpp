@@ -31,8 +31,6 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 			}
 		}
 	}
-	int HamsterCount = ContainedHamsters.Num();
-	UE_LOG(LogTemp, Display, TEXT("Hamster Count : %i"), HamsterCount);
 	ContainedHamsters.Empty();
 	DetectedActors.Empty();
 
