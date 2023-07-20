@@ -28,6 +28,9 @@ public:
 	UPROPERTY(EditAnywhere, Category="Spawning | Spawning Locations")
 	TArray<AActor*> HamsterSpawnLocations;
 private:
+
+	UPROPERTY(EditAnywhere, Category="Debug")
+	bool bSpawnTwoAtStart;
 	UPROPERTY(VisibleAnywhere, Category="Spawning | Spawning Timers")
 	float HamsterSpawnTime;
 	UPROPERTY(EditAnywhere, Category="Spawning | Spawning Timers")

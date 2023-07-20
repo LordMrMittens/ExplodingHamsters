@@ -75,7 +75,7 @@ void APlayerPawn::DragHamster()
 			Params.AddIgnoredActor(HeldHamster);
 			if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, Params))
 			{
-				float VerticalOffset = 2.f; // what is the vertical offset
+				float VerticalOffset = 40.f; // what is the vertical offset
 				FVector Destination(HitResult.Location.X, HitResult.Location.Y, HitResult.Location.Z + VerticalOffset);
 
 				FVector NewLocation = FMath::VInterpTo(HeldHamster->GetActorLocation(), Destination, DeltaTime, DraggingSpeed);
