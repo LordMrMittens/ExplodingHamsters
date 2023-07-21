@@ -3,6 +3,7 @@
 
 #include "DepositBoxTrigger.h"
 #include "HamsterEnums.h"
+#include "Hamster.h"
 
 UDepositBoxTrigger::UDepositBoxTrigger(){
 PrimaryComponentTick.bCanEverTick = true;
@@ -28,6 +29,11 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		if(Actor->ActorHasTag("Hamster") && Actor->ActorHasTag("Grabbed")== false){
 			if(ContainedHamsters.Contains(Actor) == false){
 				ContainedHamsters.Add(Actor);
+				AHamster* Hamster = Cast<AHamster>(Actor);
+				if(Hamster!=nullptr){
+					Hamster->SetInBox(true);
+				}
+				
 			}
 		}
 	}

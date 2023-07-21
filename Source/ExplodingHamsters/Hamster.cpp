@@ -46,6 +46,12 @@ void AHamster::SetPickedUp(bool _bIsPickedUp)
 	}
 }
 
+void AHamster::SetInBox(bool _bbIsInBox)
+{
+		bIsInBox = _bbIsInBox;
+
+}
+
 void AHamster::SetHamsterColour(EHamsterEnums Colour)
 {
 	HamsterColour = Colour;

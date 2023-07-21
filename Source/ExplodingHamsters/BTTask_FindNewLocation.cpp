@@ -31,16 +31,7 @@ EBTNodeResult::Type UBTTask_FindNewLocation::ExecuteTask(UBehaviorTreeComponent 
         UE_LOG(LogTemp, Error, TEXT("No Level static mesh found"));
     }
 
-
-    AAIController* AiController = OwnerComp.GetAIOwner();
-    AActor* OwnerActor = AiController->GetPawn();
-        if (OwnerActor != nullptr && AiController != nullptr)
-        {
-            UE_LOG(LogTemp, Error, TEXT("AI %s, Has possessed< %s"), *AiController->GetActorNameOrLabel(), *OwnerActor->GetActorNameOrLabel());
-        } else {
-
-            UE_LOG(LogTemp, Error, TEXT("AI %s, Has possessed a null pawn"), *AiController->GetActorNameOrLabel());
-        }
+    
     FVector NewTarget = GetRandomLocationNearby(OwnerComp);
     OwnerComp.GetBlackboardComponent()->SetValueAsVector(TEXT("TargetLocation"), NewTarget);
     return EBTNodeResult::Succeeded;

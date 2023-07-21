@@ -14,15 +14,6 @@ AHamAIController::AHamAIController()
 void AHamAIController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-            APawn *MyPawn = this->GetPawn();
-        if (MyPawn != nullptr)
-        {
-            UE_LOG(LogTemp, Error, TEXT("AI %s, Has possessed< %s"), *this->GetActorNameOrLabel(), *MyPawn->GetActorNameOrLabel());
-        } else {
-
-            UE_LOG(LogTemp, Error, TEXT("AI %s, Has possessed a null pawn"), *this->GetActorNameOrLabel());
-        }
-    
 }
 
 void AHamAIController::BeginPlay()

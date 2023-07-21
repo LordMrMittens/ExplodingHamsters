@@ -1,5 +1,21 @@
 [
 	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTService_CheckInBox.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_ExplodingHamsters\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTService_CheckInBox.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@E:\\Unreal Projects\\ExplodingHamsters\\.vscode\\compileCommands_ExplodingHamsters\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
 		"file": "E:\\Unreal Projects\\ExplodingHamsters\\Source\\ExplodingHamsters\\BTService_CheckIsGrabbed.cpp",
 		"arguments": [
 			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",

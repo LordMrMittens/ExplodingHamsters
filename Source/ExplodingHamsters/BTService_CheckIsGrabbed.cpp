@@ -15,17 +15,19 @@ UBTService_CheckIsGrabbed::UBTService_CheckIsGrabbed(){
 void UBTService_CheckIsGrabbed::OnBecomeRelevant(UBehaviorTreeComponent &OwnerComp, uint8 *NodeMemory)
 {
     Super::OnBecomeRelevant(OwnerComp, NodeMemory);
-    HamPawn = OwnerComp.GetAIOwner()->GetPawn();
-    Hamster = Cast<AHamster>(HamPawn);
+    
 }
 
 void UBTService_CheckIsGrabbed::TickNode(UBehaviorTreeComponent &OwnerComp, uint8 *NodeMemory, float DeltaSeconds)
 {
     Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
-    if(HamPawn!= nullptr){
+    Hamster = Cast<AHamster>(OwnerComp.GetAIOwner()->GetPawn());
+    if(Hamster!= nullptr){
         UE_LOG(LogTemp, Warning, TEXT("AI %s, is possessing< %s"), *OwnerComp.GetAIOwner()->GetActorNameOrLabel(), *Hamster->GetActorNameOrLabel());
 
         OwnerComp.GetBlackboardComponent()->SetValueAsBool(GetSelectedBlackboardKey(), Hamster->bIsPickedUp);
+    } else {
+        UE_LOG(LogTemp, Warning, TEXT("null"));
     }
 }
 

@@ -25,14 +25,19 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bIsPickedUp = false;
 
 	void SetPickedUp(bool _bIsPickedUp);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bIsInBox = false;
+
+	void SetInBox(bool _bbIsInBox);
 	UFUNCTION()
 	void SetHamsterColour(EHamsterEnums Colour);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    EHamsterEnums HamsterColour;
+	EHamsterEnums HamsterColour;
 };
