@@ -23,6 +23,8 @@ void UBTService_CheckIsGrabbed::TickNode(UBehaviorTreeComponent &OwnerComp, uint
 {
     Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
     if(HamPawn!= nullptr){
+        UE_LOG(LogTemp, Warning, TEXT("AI %s, is possessing< %s"), *OwnerComp.GetAIOwner()->GetActorNameOrLabel(), *Hamster->GetActorNameOrLabel());
+
         OwnerComp.GetBlackboardComponent()->SetValueAsBool(GetSelectedBlackboardKey(), Hamster->bIsPickedUp);
     }
 }

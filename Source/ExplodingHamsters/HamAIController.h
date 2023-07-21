@@ -23,6 +23,7 @@ public:
 
 	FVector MinBounds;
 	FVector MaxBounds;
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay() override;

@@ -56,7 +56,6 @@ void AHamsterSpawner::SpawnHamster()
 		AHamAIController* AIController = Cast<AHamAIController>(GetWorld()->SpawnActor(HamsterAIClass));
 		if(AIController !=nullptr){
 			AIController->Possess(Hamster);
-			UE_LOG(LogTemp, Error, TEXT("AI %s, Has possessed< %s"), *AIController->GetActorNameOrLabel(), *Hamster->GetActorNameOrLabel());
 		} else{
 			UE_LOG(LogTemp, Error, TEXT("No AI Controller"));
 		}
