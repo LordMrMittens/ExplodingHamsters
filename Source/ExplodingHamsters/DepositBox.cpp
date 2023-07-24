@@ -15,6 +15,7 @@ ADepositBox::ADepositBox()
 void ADepositBox::BeginPlay()
 {
 	Super::BeginPlay();
+	StartingLocation = GetActorLocation();
 	DepositBoxTrigger = FindComponentByClass<UDepositBoxTrigger>();
 
 	if (DepositBoxTrigger)
@@ -31,9 +32,37 @@ void ADepositBox::BeginPlay()
 void ADepositBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (bBoxIsMoving)
+	{
+		FVector CurrentLocation = GetActorLocation();
+		CurrentLocation += MovementVelocity * DeltaTime;
+		SetActorLocation(CurrentLocation);
+		float DistanceTraveled = FVector::Distance(StartingLocation, GetActorLocation());
+		if (DistanceTraveled >= MovementDistance)
+		{
+			SetActorLocation(StartingLocation + MovementVelocity.GetSafeNormal() * MovementDistance);
+			MovementVelocity *= -1;
+			bBoxIsReturning = true;
+			DepositBoxTrigger->ResetDepositBox();
+			bBoxIsEmptying = false;
+		}
+		else if (bBoxIsReturning && DistanceTraveled <= 1.0f)
+		{
+			SetActorLocation(StartingLocation);
+			bBoxIsMoving = false;
+			bBoxIsReturning = false;
+			MovementVelocity *= -1;
+		}
+	}
 }
 
-void ADepositBox::OnDepositBoxIsFull(ADepositBox* DepositBox)
+void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Owner: %s, is full, passed parameter: %s"),* GetActorNameOrLabel(), *DepositBox->GetActorNameOrLabel());
+	if (!bBoxIsEmptying)
+	{
+		bBoxIsEmptying = true;
+		bBoxIsMoving = true;
+		bBoxIsReturning = false;
+		UE_LOG(LogTemp, Warning, TEXT("Owner: %s, is full, passed parameter: %s"), *GetActorNameOrLabel(), *DepositBox->GetActorNameOrLabel());
+	}
 }

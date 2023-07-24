@@ -10,7 +10,19 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"MLTable": "yaml",
+			"algorithm": "cpp",
+			"ios": "cpp",
+			"type_traits": "cpp",
+			"xstring": "cpp",
+			"xutility": "cpp",
+			"__bit_reference": "cpp",
+			"deque": "cpp",
+			"future": "cpp",
+			"string": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

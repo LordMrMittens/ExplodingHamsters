@@ -26,6 +26,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	TArray<AActor*> ContainedHamsters;
+	void ResetDepositBox();
 
 UPROPERTY(EditAnywhere, BlueprintReadOnly)
     EHamsterEnums BoxColour;

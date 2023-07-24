@@ -17,9 +17,6 @@ void UDepositBoxTrigger::BeginPlay()
 	// ...
 	
 }
-
-
-// Called every frame
 void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -34,19 +31,20 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 				if(Hamster!=nullptr){
 					Hamster->SetInBox(true);
 				}
-				
 			}
 		}
 	}
-
-		if (ContainedHamsters.Num() >= 10)
+		if (ContainedHamsters.Num() >= MaxHamsters)
 	{
-		// Broadcast the delegate when the condition is met
 		OnDepositBoxIsFull.Broadcast(Cast<ADepositBox>(GetOwner()));
 	}
+}
 
-	ContainedHamsters.Empty();
-	DetectedActors.Empty();
-
-	// ...
+void UDepositBoxTrigger::ResetDepositBox(){
+ for (AActor* Actor : ContainedHamsters){
+	if(Actor!= nullptr)
+	Actor->Destroy();
+ }
+ContainedHamsters.Empty();
+ 
 }

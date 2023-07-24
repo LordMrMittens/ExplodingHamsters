@@ -29,7 +29,16 @@ private:
 
 UPROPERTY(EditAnywhere, Category="Deposit Box")
 UDepositBoxTrigger* DepositBoxTrigger;
+UPROPERTY(EditAnywhere, Category="Movement")
+FVector MovementVelocity;
+FVector StartingLocation;
+UPROPERTY(EditAnywhere, Category="Movement")
+float MovementDistance;
 
 	UFUNCTION()
 	void OnDepositBoxIsFull(ADepositBox* DepositBox);
+
+	bool bBoxIsEmptying;
+	bool bBoxIsMoving;
+	bool bBoxIsReturning;
 };
