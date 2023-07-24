@@ -7,6 +7,9 @@
 #include "GameFramework/Character.h"
 #include "Hamster.generated.h"
 
+class UMaterial;
+class UStaticMeshComponent;
+
 UCLASS()
 class EXPLODINGHAMSTERS_API AHamster : public ACharacter
 {
@@ -40,4 +43,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	EHamsterEnums HamsterColour;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent *StaticMesh;
+
+	UPROPERTY(EditAnywhere)
+	UMaterial *BlueMaterial;
+	UPROPERTY(EditAnywhere)
+	UMaterial *RedMaterial;
 };

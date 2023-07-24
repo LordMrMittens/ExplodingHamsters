@@ -16,6 +16,27 @@ AHamster::AHamster()
 void AHamster::BeginPlay()
 {
 	Super::BeginPlay();
+	StaticMesh = GetComponentByClass<UStaticMeshComponent>();
+	if (StaticMesh != nullptr)
+	{
+		switch (HamsterColour)
+		{
+		case EHamsterEnums::Red:
+
+			StaticMesh->SetMaterial(0, RedMaterial);
+			break;
+
+					case EHamsterEnums::Blue:
+
+			StaticMesh->SetMaterial(0, BlueMaterial);
+			break;
+		
+		default:
+		UE_LOG(LogTemp, Error, TEXT("Hamster material not set"));
+			break;
+		}
+	}
+	
 	
 }
 
