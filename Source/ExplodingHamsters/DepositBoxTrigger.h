@@ -33,9 +33,9 @@ public:
 UPROPERTY(EditAnywhere, BlueprintReadOnly)
     EHamsterEnums BoxColour;
 
-		UPROPERTY(EditAnywhere, BlueprintReadOnly)
+UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 MaxHamsters = 10;
 
-	UPROPERTY(BlueprintAssignable, Category = "Deposit Box")
+UPROPERTY(BlueprintAssignable, Category = "Deposit Box")
 	FDepositBoxIsFullDelegate OnDepositBoxIsFull;
 };

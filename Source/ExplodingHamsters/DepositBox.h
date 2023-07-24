@@ -41,4 +41,6 @@ float MovementDistance;
 	bool bBoxIsEmptying;
 	bool bBoxIsMoving;
 	bool bBoxIsReturning;
+
+void MoveBox(float DeltaTime);
 };

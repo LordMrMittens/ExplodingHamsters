@@ -32,6 +32,19 @@ void ADepositBox::BeginPlay()
 void ADepositBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	MoveBox(DeltaTime);
+}
+
+void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
+{
+	if (!bBoxIsEmptying)
+	{
+		bBoxIsEmptying = true;
+		bBoxIsMoving = true;
+		bBoxIsReturning = false;
+	}
+}
+void ADepositBox::MoveBox(float DeltaTime){
 	if (bBoxIsMoving)
 	{
 		FVector CurrentLocation = GetActorLocation();
@@ -53,16 +66,5 @@ void ADepositBox::Tick(float DeltaTime)
 			bBoxIsReturning = false;
 			MovementVelocity *= -1;
 		}
-	}
-}
-
-void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
-{
-	if (!bBoxIsEmptying)
-	{
-		bBoxIsEmptying = true;
-		bBoxIsMoving = true;
-		bBoxIsReturning = false;
-		UE_LOG(LogTemp, Warning, TEXT("Owner: %s, is full, passed parameter: %s"), *GetActorNameOrLabel(), *DepositBox->GetActorNameOrLabel());
 	}
 }
