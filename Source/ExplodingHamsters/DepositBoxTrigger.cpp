@@ -4,6 +4,7 @@
 #include "DepositBoxTrigger.h"
 #include "HamsterEnums.h"
 #include "Hamster.h"
+#include "DepositBox.h"
 
 UDepositBoxTrigger::UDepositBoxTrigger(){
 PrimaryComponentTick.bCanEverTick = true;
@@ -37,6 +38,13 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 			}
 		}
 	}
+
+		if (ContainedHamsters.Num() >= 10)
+	{
+		// Broadcast the delegate when the condition is met
+		OnDepositBoxIsFull.Broadcast(Cast<ADepositBox>(GetOwner()));
+	}
+
 	ContainedHamsters.Empty();
 	DetectedActors.Empty();
 

@@ -23,8 +23,6 @@ void UBTService_CheckInBox::TickNode(UBehaviorTreeComponent &OwnerComp, uint8 *N
     Hamster = Cast<AHamster>(OwnerComp.GetAIOwner()->GetPawn());
     if (Hamster != nullptr)
     {
-        UE_LOG(LogTemp, Warning, TEXT("AI %s, is possessing< %s"), *OwnerComp.GetAIOwner()->GetActorNameOrLabel(), *Hamster->GetActorNameOrLabel());
-
         OwnerComp.GetBlackboardComponent()->SetValueAsBool(GetSelectedBlackboardKey(), Hamster->bIsInBox);
     }
     else
