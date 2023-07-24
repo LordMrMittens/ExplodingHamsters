@@ -48,7 +48,7 @@ void APlayerPawn::OnPlayerClicked()
 		if (HamsterActor != nullptr && HamsterActor->ActorHasTag("Hamster"))
 		{
 			AHamster *Hamster = Cast<AHamster>(HamsterActor);
-			if (Hamster != nullptr && Hamster->bIsPickedUp == false)
+			if (Hamster != nullptr && Hamster->bIsPickedUp == false && Hamster->bIsInBox == false)
 			{
 				VerticalHoldPosition = HamsterActor->GetActorLocation().Z+50;
 				Hamster->SetPickedUp(true);

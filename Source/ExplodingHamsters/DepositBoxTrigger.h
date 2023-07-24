@@ -28,6 +28,8 @@ public:
 	TArray<AActor*> ContainedHamsters;
 	void ResetDepositBox();
 
+	bool IsValidHamster(AActor* HamsterActor,class AHamster* &DepositedHamster, bool &ShouldExplode);
+
 UPROPERTY(EditAnywhere, BlueprintReadOnly)
     EHamsterEnums BoxColour;
 

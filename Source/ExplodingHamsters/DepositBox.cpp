@@ -46,7 +46,7 @@ void ADepositBox::Tick(float DeltaTime)
 			DepositBoxTrigger->ResetDepositBox();
 			bBoxIsEmptying = false;
 		}
-		else if (bBoxIsReturning && DistanceTraveled <= 1.0f)
+		else if (bBoxIsReturning && DistanceTraveled <= 3.0f)
 		{
 			SetActorLocation(StartingLocation);
 			bBoxIsMoving = false;

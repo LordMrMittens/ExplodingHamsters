@@ -9,7 +9,7 @@ enum class EHamsterEnums : uint8
 {
     Red,
     Blue,
-    Green,
-    Yellow,
+   // Green,
+   // Yellow,
     EnumCount UMETA(Hidden)
 };
