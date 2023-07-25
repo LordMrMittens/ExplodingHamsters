@@ -23,7 +23,7 @@ public:
 	float ScoreUpdateSpeed = .1f;
 	float ScoreUpdatecounter = 0.f;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scoring")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Scoring")
 	int32 Score = 0;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scoring")
 	int32 CurrentScore = 0;
