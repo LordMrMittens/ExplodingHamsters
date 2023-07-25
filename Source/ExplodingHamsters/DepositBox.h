@@ -7,6 +7,7 @@
 #include "DepositBox.generated.h"
 
 class UDepositBoxTrigger;
+class AExplodingHamstersGM;
 
 UCLASS()
 class EXPLODINGHAMSTERS_API ADepositBox : public AActor
@@ -27,20 +28,24 @@ public:
 
 private:
 
-UPROPERTY(EditAnywhere, Category="Deposit Box")
-UDepositBoxTrigger* DepositBoxTrigger;
-UPROPERTY(EditAnywhere, Category="Movement")
-FVector MovementVelocity;
-FVector StartingLocation;
-UPROPERTY(EditAnywhere, Category="Movement")
-float MovementDistance;
+	UPROPERTY()
+	AExplodingHamstersGM* ExplodingHamstersGameMode;
+	UPROPERTY(EditAnywhere, Category = "Deposit Box")
+	UDepositBoxTrigger *DepositBoxTrigger;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	FVector MovementVelocity;
+	FVector StartingLocation;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float MovementDistance;
 
 	UFUNCTION()
-	void OnDepositBoxIsFull(ADepositBox* DepositBox);
+	void OnDepositBoxIsFull(ADepositBox *DepositBox);
+
+	void UpdateScore();
 
 	bool bBoxIsEmptying;
 	bool bBoxIsMoving;
 	bool bBoxIsReturning;
 
-void MoveBox(float DeltaTime);
+	void MoveBox(float DeltaTime);
 };

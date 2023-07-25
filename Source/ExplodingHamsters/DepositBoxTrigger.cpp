@@ -26,6 +26,7 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		AHamster *Hamster;
 		if (IsValidHamster(Actor, Hamster, bShouldItExplode))
 		{
+			
 			ContainedHamsters.Add(Actor);
 			if(bShouldItExplode){
 				//lose game dont clear it

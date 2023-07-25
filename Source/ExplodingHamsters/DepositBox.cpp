@@ -3,6 +3,8 @@
 
 #include "DepositBox.h"
 #include "DepositBoxTrigger.h"
+#include "ExplodingHamstersGM.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ADepositBox::ADepositBox()
@@ -17,6 +19,7 @@ void ADepositBox::BeginPlay()
 	Super::BeginPlay();
 	StartingLocation = GetActorLocation();
 	DepositBoxTrigger = FindComponentByClass<UDepositBoxTrigger>();
+	ExplodingHamstersGameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	if (DepositBoxTrigger)
 	{
@@ -42,6 +45,13 @@ void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;
 		bBoxIsReturning = false;
+	}
+}
+
+void ADepositBox::UpdateScore()
+{
+	if(ExplodingHamstersGameMode != nullptr && DepositBoxTrigger != nullptr){
+		ExplodingHamstersGameMode->UpdateScore(DepositBoxTrigger->ContainedHamsters.Num());
 	}
 }
 void ADepositBox::MoveBox(float DeltaTime){
