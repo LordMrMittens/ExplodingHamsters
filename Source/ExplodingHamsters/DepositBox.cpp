@@ -66,6 +66,7 @@ void ADepositBox::MoveBox(float DeltaTime){
 			SetActorLocation(StartingLocation + MovementVelocity.GetSafeNormal() * MovementDistance);
 			MovementVelocity *= -1;
 			bBoxIsReturning = true;
+			UpdateScore();
 			DepositBoxTrigger->ResetDepositBox();
 			bBoxIsEmptying = false;
 		}

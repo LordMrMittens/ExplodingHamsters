@@ -15,13 +15,19 @@ void AExplodingHamstersGM::BeginPlay()
 void AExplodingHamstersGM::Tick(float DeltaTime)
 {
     if (Score <CurrentScore){
-        Score++;
+        ScoreUpdatecounter += DeltaTime;
+        if(ScoreUpdatecounter > ScoreUpdateSpeed){
+            Score++;
+            ScoreUpdatecounter =0.f;
+
+        }
+        
     }
 }
 
 void AExplodingHamstersGM::UpdateScore(int32 _Score)
 {
-    CurrentScore = _Score;
+    CurrentScore += _Score;
 }
 
 
