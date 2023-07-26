@@ -2,6 +2,10 @@
 
 
 #include "Explosive.h"
+#include "Kismet/GameplayStatics.h"
+#include "Hamster.h"
+#include "ExplodingHamstersGM.h"
+
 
 // Sets default values
 AExplosive::AExplosive()
@@ -15,6 +19,18 @@ AExplosive::AExplosive()
 void AExplosive::BeginPlay()
 {
 	Super::BeginPlay();
+	GetWorldTimerManager().SetTimer(ExplosionTimerHandle, this, &AExplosive::StartExploding, ExplosionTime, false);
+
+	    AExplodingHamstersGM* GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
+        if (GameMode)
+    {
+        GameMode->BoxStartedMoving.AddDynamic(this, &AExplosive::OnBoxIsMoving);
+        GameMode->BoxCompletedMovement.AddDynamic(this, &AExplosive::OnBoxStopped);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
+    }
 	
 }
 
@@ -22,7 +38,48 @@ void AExplosive::BeginPlay()
 void AExplosive::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if(bIsInBox){
+		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
+	}
 
+}
+void AExplosive::StartExploding(){
+	TArray<AActor*> AllHamsters;
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), TEXT("Hamster"), AllHamsters);
+	for (AActor* HamsterActor : AllHamsters){
+		AExplosive* Explosive = Cast<AExplosive>(HamsterActor);
+		AHamster* Hamster = Cast<AHamster>(HamsterActor);
+		if(Hamster != nullptr && Explosive !=nullptr){
+			if (Hamster->bIsInBox == false)
+			{
+				Explosive->Explode();
+			}
+			
+		}
+
+	}
+}
+
+void AExplosive::OnBoxIsMoving()
+{
+	if (bIsInBox == false)
+	{
+		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
+	}
+}
+
+void AExplosive::OnBoxStopped()
+{
+	if (bIsInBox == false)
+	{
+		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
+	}
+}
+
+void AExplosive::Explode()
+{
+
+	UE_LOG(LogTemp, Error, TEXT("Actor %s Went Boom"), *GetActorNameOrLabel());
 }
 
 // Called to bind functionality to input

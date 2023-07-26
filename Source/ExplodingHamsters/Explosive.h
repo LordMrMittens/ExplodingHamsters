@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Hamster.h"
 #include "GameFramework/Character.h"
 #include "Explosive.generated.h"
 
+
 UCLASS()
-class EXPLODINGHAMSTERS_API AExplosive : public ACharacter
+class EXPLODINGHAMSTERS_API AExplosive : public AHamster
 {
 	GENERATED_BODY()
 
@@ -23,7 +25,18 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void Explode();
+	void StartExploding();
+	
+	UFUNCTION()
+	void OnBoxIsMoving();
+	UFUNCTION()
+	void OnBoxStopped();
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+private:
+	float ExplosionTime = 10;
 
+	FTimerHandle ExplosionTimerHandle;
 };
