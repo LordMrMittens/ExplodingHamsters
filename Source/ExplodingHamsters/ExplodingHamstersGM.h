@@ -28,8 +28,18 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scoring")
 	int32 CurrentScore = 0;
 
+
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
+	class UScoreWidget* ScoreWidget;
+
+	UPROPERTY()
+	class AEHPlayerController* PlayerController;
+
 protected:
 	virtual void BeginPlay() override;
 
 private:
+
+
+ 
 };

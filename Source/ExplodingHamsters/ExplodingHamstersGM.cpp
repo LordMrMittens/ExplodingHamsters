@@ -2,6 +2,9 @@
 
 
 #include "ExplodingHamstersGM.h"
+#include "ScoreWidget.h"
+#include "EHPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
 
 AExplodingHamstersGM::AExplodingHamstersGM()
@@ -14,14 +17,36 @@ void AExplodingHamstersGM::BeginPlay()
 }
 void AExplodingHamstersGM::Tick(float DeltaTime)
 {
-    if (Score <CurrentScore){
-        ScoreUpdatecounter += DeltaTime;
-        if(ScoreUpdatecounter > ScoreUpdateSpeed){
-            Score++;
-            ScoreUpdatecounter =0.f;
-
+    if (PlayerController == nullptr)
+    {
+        PlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+    }
+    if (ScoreWidget == nullptr)
+    {
+        if (PlayerController->ScoreWidget != nullptr)
+        {
+            ScoreWidget = PlayerController->ScoreWidget;
+            if (ScoreWidget != nullptr)
+            {
+                FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
+                ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
+            }
         }
-        
+    }
+
+    if (Score < CurrentScore)
+    {
+        ScoreUpdatecounter += DeltaTime;
+        if (ScoreUpdatecounter > ScoreUpdateSpeed)
+        {
+            Score++;
+            ScoreUpdatecounter = 0.f;
+            if (ScoreWidget != nullptr)
+            {
+                FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
+                ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
+            }
+        }
     }
 }
 
