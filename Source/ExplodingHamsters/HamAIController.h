@@ -32,8 +32,12 @@ private:
 	//FVector GetRandomLocationNearby();
 
 	UPROPERTY(EditAnywhere, Category = "Parameters")
-	class UBehaviorTree* BehaviorTree;
+	class UBehaviorTree *BehaviorTree;
 
 	UPROPERTY(VisibleAnywhere, Category = "Parameters")
 	APawn *AIPawn;
+	UFUNCTION()
+	void OnBoxIsMoving();
+	UFUNCTION()
+	void OnBoxStopped();
 };

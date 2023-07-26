@@ -42,6 +42,7 @@ void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 {
 	if (!bBoxIsEmptying)
 	{
+		ExplodingHamstersGameMode->ABoxIsMoving();
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;
 		bBoxIsReturning = false;
@@ -76,6 +77,7 @@ void ADepositBox::MoveBox(float DeltaTime){
 			bBoxIsMoving = false;
 			bBoxIsReturning = false;
 			MovementVelocity *= -1;
+			ExplodingHamstersGameMode->ABoxCompleted();
 		}
 	}
 }

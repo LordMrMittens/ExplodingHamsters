@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Hamster.h"
 #include "HamAIController.h"
+#include "ExplodingHamstersGM.h"
 
 #define ENUM_LENGTH(EnumType) (static_cast<int32>(EnumType::EnumCount))
 
@@ -21,10 +22,17 @@ AHamsterSpawner::AHamsterSpawner()
 void AHamsterSpawner::BeginPlay()
 {
 	Super::BeginPlay();
+	    GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
+    if (GameMode)
+    {
+        GameMode->BoxStartedMoving.AddDynamic(this, &AHamsterSpawner::OnBoxIsMoving);
+        GameMode->BoxCompletedMovement.AddDynamic(this, &AHamsterSpawner::OnBoxStopped);
+		UE_LOG(LogTemp, Error, TEXT("Gamemode is Assigned"));
+    } else{
+		UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
+	}
 	HamsterSpawnTime = MaxSpawnTime;
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle,this,&AHamsterSpawner::SpawnHamster,HamsterSpawnTime,false);
-
-	
 	if(bSpawnTwoAtStart){
 		SpawnHamster();
 		SpawnHamster();
@@ -65,4 +73,15 @@ void AHamsterSpawner::SpawnHamster()
 
 	HamsterSpawnTime = FMath::Max(MinSpawnTime, HamsterSpawnTime - .2f);
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AHamsterSpawner::SpawnHamster, HamsterSpawnTime, false);
+}
+
+void AHamsterSpawner::OnBoxIsMoving()
+{
+	GetWorldTimerManager().PauseTimer(SpawnTimerHandle);
+}
+
+void AHamsterSpawner::OnBoxStopped()
+{
+	GetWorldTimerManager().UnPauseTimer(SpawnTimerHandle);
+	
 }

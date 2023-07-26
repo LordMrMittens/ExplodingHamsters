@@ -6,6 +6,8 @@
 #include "ExplodingHamstersGameModeBase.h"
 #include "ExplodingHamstersGM.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FABoxIsMoving);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FABoxCompletedMovement);
 /**
  *
  */
@@ -28,20 +30,23 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scoring")
 	int32 CurrentScore = 0;
 
+	void ABoxIsMoving();
+	void ABoxCompleted();
 
-UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
-	class UScoreWidget* ScoreWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
+	class UScoreWidget *ScoreWidget;
 
 	UPROPERTY()
-	class AEHPlayerController* PlayerController;
+	class AEHPlayerController *PlayerController;
+
+	UPROPERTY(BlueprintAssignable)
+	FABoxIsMoving BoxStartedMoving;
+	UPROPERTY(BlueprintAssignable)
+	FABoxCompletedMovement BoxCompletedMovement;
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
-
-void CheckPlayerReferences();
-
-
- 
+	void CheckPlayerReferences();
 };

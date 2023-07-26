@@ -9,6 +9,7 @@
 class UDepositBoxTrigger;
 class AExplodingHamstersGM;
 
+
 UCLASS()
 class EXPLODINGHAMSTERS_API ADepositBox : public AActor
 {

@@ -48,5 +48,11 @@ private:
 	TSubclassOf<AHamster> HamsterClass;
 	UPROPERTY(EditAnywhere, Category="Spawning | Prefab")
 	TSubclassOf<AHamAIController> HamsterAIClass;
+	UFUNCTION()
+	void OnBoxIsMoving();
+	UFUNCTION()
+	void OnBoxStopped();
+
+	class AExplodingHamstersGM* GameMode;
     
 };

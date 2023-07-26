@@ -33,7 +33,7 @@ void AExplodingHamstersGM::CheckPlayerReferences()
 }
 void AExplodingHamstersGM::Tick(float DeltaTime)
 {
-CheckPlayerReferences();
+    CheckPlayerReferences();
 
     if (Score < CurrentScore)
     {
@@ -42,7 +42,7 @@ CheckPlayerReferences();
         {
             Score++;
             ScoreUpdatecounter = 0.f;
-            UpdateScore(Score);
+            UpdateScore(0);
         }
     }
 }
@@ -55,4 +55,14 @@ void AExplodingHamstersGM::UpdateScore(int32 _Score)
         FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
         ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
     }
+}
+
+void AExplodingHamstersGM::ABoxIsMoving()
+{
+    BoxStartedMoving.Broadcast();
+}
+
+void AExplodingHamstersGM::ABoxCompleted()
+{
+    BoxCompletedMovement.Broadcast();
 }
