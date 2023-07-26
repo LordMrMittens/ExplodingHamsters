@@ -15,9 +15,10 @@ void AExplodingHamstersGM::BeginPlay()
 {
     Super::BeginPlay();
 }
-void AExplodingHamstersGM::Tick(float DeltaTime)
+
+void AExplodingHamstersGM::CheckPlayerReferences()
 {
-    if (PlayerController == nullptr)
+        if (PlayerController == nullptr)
     {
         PlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
     }
@@ -26,13 +27,13 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
         if (PlayerController->ScoreWidget != nullptr)
         {
             ScoreWidget = PlayerController->ScoreWidget;
-            if (ScoreWidget != nullptr)
-            {
-                FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
-                ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
-            }
+            UpdateScore(Score);
         }
     }
+}
+void AExplodingHamstersGM::Tick(float DeltaTime)
+{
+CheckPlayerReferences();
 
     if (Score < CurrentScore)
     {
@@ -41,11 +42,7 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
         {
             Score++;
             ScoreUpdatecounter = 0.f;
-            if (ScoreWidget != nullptr)
-            {
-                FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
-                ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
-            }
+            UpdateScore(Score);
         }
     }
 }
@@ -53,6 +50,9 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
 void AExplodingHamstersGM::UpdateScore(int32 _Score)
 {
     CurrentScore += _Score;
+    if (ScoreWidget != nullptr)
+    {
+        FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
+        ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
+    }
 }
-
-
