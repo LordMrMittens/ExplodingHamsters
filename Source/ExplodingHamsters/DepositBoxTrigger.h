@@ -27,8 +27,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	TArray<AActor*> ContainedHamsters;
 	void ResetDepositBox();
+	void DestroyDepositBox();
 
-	bool IsValidHamster(AActor* HamsterActor,class AHamster* &DepositedHamster, bool &ShouldExplode);
+	bool IsValidHamster(AActor* HamsterActor,class AExplosive* &DepositedHamster, bool &ShouldExplode);
 
 UPROPERTY(EditAnywhere, BlueprintReadOnly)
     EHamsterEnums BoxColour;

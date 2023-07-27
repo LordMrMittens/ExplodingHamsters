@@ -46,6 +46,7 @@ void AExplosive::Tick(float DeltaTime)
 void AExplosive::StartExploding(){
 	TArray<AActor*> AllHamsters;
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), TEXT("Hamster"), AllHamsters);
+	Explode();
 	for (AActor* HamsterActor : AllHamsters){
 		AExplosive* Explosive = Cast<AExplosive>(HamsterActor);
 		AHamster* Hamster = Cast<AHamster>(HamsterActor);
@@ -58,6 +59,7 @@ void AExplosive::StartExploding(){
 		}
 
 	}
+	//end the game from game mode
 }
 
 void AExplosive::OnBoxIsMoving()
@@ -80,6 +82,7 @@ void AExplosive::Explode()
 {
 
 	UE_LOG(LogTemp, Error, TEXT("Actor %s Went Boom"), *GetActorNameOrLabel());
+	this->Destroy();
 }
 
 // Called to bind functionality to input

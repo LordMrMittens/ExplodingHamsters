@@ -3,6 +3,7 @@
 #include "DepositBoxTrigger.h"
 #include "HamsterEnums.h"
 #include "Hamster.h"
+#include "Explosive.h"
 #include "DepositBox.h"
 
 UDepositBoxTrigger::UDepositBoxTrigger()
@@ -23,14 +24,13 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	for (AActor *Actor : DetectedActors)
 	{
 		bool bShouldItExplode;
-		AHamster *Hamster;
+		AExplosive *Hamster;
 		if (IsValidHamster(Actor, Hamster, bShouldItExplode))
 		{
 			
 			ContainedHamsters.Add(Actor);
 			if(bShouldItExplode){
-				//lose game dont clear it
-				ResetDepositBox();
+				Hamster->StartExploding();
 			}
 		}
 	}
@@ -49,12 +49,27 @@ void UDepositBoxTrigger::ResetDepositBox()
 	}
 	ContainedHamsters.Empty();
 }
+void UDepositBoxTrigger::DestroyDepositBox()
+{
+	for (AActor *Actor : ContainedHamsters)
+	{
+		if (Actor != nullptr)
+		{
+			AExplosive *Explosive = Cast<AExplosive>(Actor);
+			if (Explosive != nullptr)
+			{
+				Explosive->Explode();
+			}
+		}
+	}
+	ContainedHamsters.Empty();
+}
 
-bool UDepositBoxTrigger::IsValidHamster(AActor *HamsterActor, AHamster *&DepositedHamster, bool &ShouldExplode)
+bool UDepositBoxTrigger::IsValidHamster(AActor *HamsterActor, AExplosive *&DepositedHamster, bool &ShouldExplode)
 {
 	if (HamsterActor != nullptr && HamsterActor->ActorHasTag("Hamster") && HamsterActor->ActorHasTag("Grabbed") == false)
 	{
-		DepositedHamster = Cast<AHamster>(HamsterActor);
+		DepositedHamster = Cast<AExplosive>(HamsterActor);
 		if (DepositedHamster != nullptr && ContainedHamsters.Contains(HamsterActor) == false)
 		{
 			ShouldExplode = DepositedHamster->HamsterColour != BoxColour;
