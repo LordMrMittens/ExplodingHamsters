@@ -33,6 +33,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float DraggingSpeed = 20.0f;
+	UFUNCTION()
+	void OnBoxIsMoving();
+	UFUNCTION()
+	void OnBoxStopped();
 private:
 	APlayerController* PlayerController;
 	void OnPlayerClicked();
@@ -40,6 +44,7 @@ private:
 	AActor* HeldHamster;
 	void DragHamster();
 	void Release();
+	bool bCanPickUp = true;
 
 	bool GetMouseWorldPosition(FVector &OutMouseLocation, FVector &OutMouseDirection);
 

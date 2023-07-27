@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "Hamster.h"
 #include "HamAIController.h"
+#include "ExplodingHamstersGM.h"
 
 // Sets default values
 APlayerPawn::APlayerPawn()
@@ -23,13 +24,21 @@ APlayerPawn::APlayerPawn()
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	    AExplodingHamstersGM* GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
+        if (GameMode)
+    {
+        GameMode->BoxStartedMoving.AddDynamic(this, &APlayerPawn::OnBoxIsMoving);
+        GameMode->BoxCompletedMovement.AddDynamic(this, &APlayerPawn::OnBoxStopped);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
+    }
 	if (PlayerController)
 	{
 		PlayerController->bShowMouseCursor = true;
 		PlayerController->bEnableClickEvents = true;
 		PlayerController->bEnableMouseOverEvents = true;
-		UE_LOG(LogTemp, Display, TEXT("PlayerMouse Enabled"));
 	}
 }
 
@@ -41,6 +50,7 @@ void APlayerPawn::Tick(float DeltaTime)
 
 void APlayerPawn::OnPlayerClicked()
 {
+	if(bCanPickUp){
 	FHitResult ObjectHit;
 	if (PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, ObjectHit))
 	{
@@ -56,10 +66,13 @@ void APlayerPawn::OnPlayerClicked()
 			}
 			
 		}
-	}
+	}}
 }
 void APlayerPawn::DragHamster()
 {
+	if(bCanPickUp==false){
+		Release();
+	}
 	if (HeldHamster != nullptr)
 	{
 		FVector MouseLocation;
@@ -138,5 +151,15 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponen
 	playerEIcomponent->BindAction(InputRightClick, ETriggerEvent::Started, this,  &APlayerPawn::OnPlayerClicked);
 	playerEIcomponent->BindAction(InputRightClick, ETriggerEvent::Triggered, this,  &APlayerPawn::DragHamster);
 	playerEIcomponent->BindAction(InputRightClick, ETriggerEvent::Completed, this,  &APlayerPawn::Release);
+}
+
+void APlayerPawn::OnBoxIsMoving()
+{
+	bCanPickUp = false;
+}
+
+void APlayerPawn::OnBoxStopped()
+{
+	bCanPickUp = true;
 }
 
