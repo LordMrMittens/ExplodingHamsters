@@ -77,11 +77,12 @@ void ADepositBox::MoveBox()
 		if (DistanceTraveled >= MovementDistance)
 		{
 			SetActorLocation(StartingLocation + MovementVelocity.GetSafeNormal() * MovementDistance);
-			MovementVelocity *= -1;
-			bBoxIsReturning = true;
 			UpdateScore();
 			DepositBoxTrigger->ResetDepositBox();
-			bBoxIsEmptying = false;
+			FTimerHandle ReturnMovementDelayTimerHandle;
+			bBoxIsMoving = false;
+			GetWorldTimerManager().SetTimer(ReturnMovementDelayTimerHandle, this, &ADepositBox::StartReturnMovement, ReturnMovementDelay, false);
+			
 		}
 		else if (bBoxIsReturning && DistanceTraveled <= 3.0f)
 		{
@@ -99,6 +100,14 @@ void ADepositBox::GameOverCount()
 	bBoxIsEmptying = true;
 	bBoxIsMoving = true;
 	bBoxIsReturning = false;
+}
+
+void ADepositBox::StartReturnMovement()
+{
+	bBoxIsMoving = true;
+	MovementVelocity *= -1;
+	bBoxIsReturning = true;
+	bBoxIsEmptying = false;
 }
 
 void ADepositBox::OnGameIsOver()

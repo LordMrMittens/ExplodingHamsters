@@ -63,5 +63,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	float GameOverDelay = .5f;
 
+	void StartReturnMovement();
+	float ReturnMovementDelay = 2.0f;
+
 
 };
