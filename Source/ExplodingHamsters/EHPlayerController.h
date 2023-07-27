@@ -15,12 +15,20 @@ class EXPLODINGHAMSTERS_API AEHPlayerController : public APlayerController
 	GENERATED_BODY()
 	public:
 	class UScoreWidget* ScoreWidget;
+	UScoreWidget* BigScoreWidget;
+	void ShowScoreUpdatePanel();
+	void HideScoreUpdatePanel();
+
 	protected:
 	virtual void BeginPlay() override;
 
 	private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;
+		UPROPERTY(EditAnywhere)
+	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
+
+	
 	
 
 	

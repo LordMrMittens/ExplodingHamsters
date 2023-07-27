@@ -22,11 +22,12 @@ void AExplodingHamstersGM::CheckPlayerReferences()
     {
         PlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
     }
-    if (ScoreWidget == nullptr)
+    if (ScoreWidget == nullptr || BigScoreWidget == nullptr)
     {
-        if (PlayerController->ScoreWidget != nullptr)
+        if (PlayerController->ScoreWidget != nullptr && PlayerController->BigScoreWidget != nullptr)
         {
             ScoreWidget = PlayerController->ScoreWidget;
+            BigScoreWidget = PlayerController->BigScoreWidget;
             UpdateScore(Score);
         }
     }
@@ -35,8 +36,9 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
 {
     CheckPlayerReferences();
 
-    if (Score < CurrentScore)
+    if (Score < CurrentScore && PlayerController != nullptr)
     {
+        PlayerController->ShowScoreUpdatePanel();
         ScoreUpdatecounter += DeltaTime;
         if (ScoreUpdatecounter > ScoreUpdateSpeed)
         {
@@ -50,10 +52,12 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
 void AExplodingHamstersGM::UpdateScore(int32 _Score)
 {
     CurrentScore += _Score;
-    if (ScoreWidget != nullptr)
+    if (ScoreWidget != nullptr && BigScoreWidget != nullptr)
     {
         FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
+        FString BigScoreTextUI = FString::Printf(TEXT("Hammies Defused: %d"), Score);
         ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
+        BigScoreWidget->UpdateTextBlock(FText::FromString(BigScoreTextUI));
     }
 }
 
@@ -64,6 +68,7 @@ void AExplodingHamstersGM::ABoxIsMoving()
 
 void AExplodingHamstersGM::ABoxCompleted()
 {
+    PlayerController->HideScoreUpdatePanel();
     BoxCompletedMovement.Broadcast();
 }
 
