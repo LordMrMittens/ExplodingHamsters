@@ -39,4 +39,6 @@ private:
 	float ExplosionTime = 10;
 
 	FTimerHandle ExplosionTimerHandle;
+
+	class AExplodingHamstersGM* GameMode;
 };

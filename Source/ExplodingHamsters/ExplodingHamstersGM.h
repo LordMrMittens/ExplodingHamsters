@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FABoxIsMoving);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FABoxCompletedMovement);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGameIsOver);
 /**
  *
  */
@@ -32,6 +33,7 @@ public:
 
 	void ABoxIsMoving();
 	void ABoxCompleted();
+	void OnGameIsOver();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
 	class UScoreWidget *ScoreWidget;
@@ -43,6 +45,8 @@ public:
 	FABoxIsMoving BoxStartedMoving;
 	UPROPERTY(BlueprintAssignable)
 	FABoxCompletedMovement BoxCompletedMovement;
+	UPROPERTY(BlueprintAssignable)
+	FGameIsOver OnGameOver;
 
 protected:
 	virtual void BeginPlay() override;

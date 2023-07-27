@@ -17,6 +17,10 @@ ADepositBox::ADepositBox()
 void ADepositBox::BeginPlay()
 {
 	Super::BeginPlay();
+	AExplodingHamstersGM* GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
+	if(GameMode!=nullptr){
+		GameMode->OnGameOver.AddDynamic(this, &ADepositBox::OnGameIsOver);
+	}
 	StartingLocation = GetActorLocation();
 	DepositBoxTrigger = FindComponentByClass<UDepositBoxTrigger>();
 	if (DepositBoxTrigger != nullptr)
@@ -84,6 +88,20 @@ void ADepositBox::MoveBox(float DeltaTime)
 			bBoxIsReturning = false;
 			MovementVelocity *= -1;
 			ExplodingHamstersGameMode->ABoxCompleted();
+		}
+	}
+}
+
+void ADepositBox::OnGameIsOver()
+{
+	if (DepositBoxTrigger != nullptr)
+	{
+		if (DepositBoxTrigger->ContainedHamsters.Num() > 0)
+		{
+			ExplodingHamstersGameMode->ABoxIsMoving(); // this might not be needed or cause issues
+			bBoxIsEmptying = true;
+			bBoxIsMoving = true;
+			bBoxIsReturning = false;
 		}
 	}
 }

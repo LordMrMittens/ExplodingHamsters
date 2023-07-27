@@ -52,6 +52,8 @@ private:
 	void OnBoxIsMoving();
 	UFUNCTION()
 	void OnBoxStopped();
+		UFUNCTION()
+	void OnGameIsOver();
 
 	class AExplodingHamstersGM* GameMode;
     

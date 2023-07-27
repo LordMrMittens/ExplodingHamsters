@@ -33,6 +33,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 MaxHamsters = 10;
 
+		UFUNCTION()
+	void OnGameIsOver();
+
 private:
 	UPROPERTY()
 	AExplodingHamstersGM *ExplodingHamstersGameMode;
@@ -54,4 +57,6 @@ private:
 	bool bBoxIsReturning;
 
 	void MoveBox(float DeltaTime);
+
+
 };

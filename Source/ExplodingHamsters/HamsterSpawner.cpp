@@ -27,6 +27,7 @@ void AHamsterSpawner::BeginPlay()
     {
         GameMode->BoxStartedMoving.AddDynamic(this, &AHamsterSpawner::OnBoxIsMoving);
         GameMode->BoxCompletedMovement.AddDynamic(this, &AHamsterSpawner::OnBoxStopped);
+		GameMode->OnGameOver.AddDynamic(this, &AHamsterSpawner::OnGameIsOver);
 		UE_LOG(LogTemp, Error, TEXT("Gamemode is Assigned"));
     } else{
 		UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
@@ -84,4 +85,10 @@ void AHamsterSpawner::OnBoxStopped()
 {
 	GetWorldTimerManager().UnPauseTimer(SpawnTimerHandle);
 	
+}
+
+void AHamsterSpawner::OnGameIsOver()
+{
+	GetWorldTimerManager().PauseTimer(SpawnTimerHandle);
+	GetWorldTimerManager().ClearTimer(SpawnTimerHandle);
 }

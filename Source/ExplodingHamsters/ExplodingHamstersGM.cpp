@@ -66,3 +66,8 @@ void AExplodingHamstersGM::ABoxCompleted()
 {
     BoxCompletedMovement.Broadcast();
 }
+
+void AExplodingHamstersGM::OnGameIsOver()
+{
+    OnGameOver.Broadcast();
+}

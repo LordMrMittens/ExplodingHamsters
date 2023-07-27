@@ -21,7 +21,7 @@ void AExplosive::BeginPlay()
 	Super::BeginPlay();
 	GetWorldTimerManager().SetTimer(ExplosionTimerHandle, this, &AExplosive::StartExploding, ExplosionTime, false);
 
-	    AExplodingHamstersGM* GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
+	    GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
         if (GameMode)
     {
         GameMode->BoxStartedMoving.AddDynamic(this, &AExplosive::OnBoxIsMoving);
@@ -59,7 +59,11 @@ void AExplosive::StartExploding(){
 		}
 
 	}
-	//end the game from game mode
+	if (GameMode) {
+		GameMode->OnGameIsOver();
+	} else {
+		UE_LOG(LogTemp, Error, TEXT("Could not end game because game mode is null"));
+	}
 }
 
 void AExplosive::OnBoxIsMoving()
