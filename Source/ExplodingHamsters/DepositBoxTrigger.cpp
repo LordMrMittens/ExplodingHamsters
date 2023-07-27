@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "DepositBoxTrigger.h"
-#include "HamsterEnums.h"
 #include "Hamster.h"
 #include "Explosive.h"
 #include "DepositBox.h"
@@ -14,7 +13,6 @@ UDepositBoxTrigger::UDepositBoxTrigger()
 void UDepositBoxTrigger::BeginPlay()
 {
 	Super::BeginPlay();
-	// ...
 }
 void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
@@ -27,10 +25,15 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		AExplosive *Hamster;
 		if (IsValidHamster(Actor, Hamster, bShouldItExplode))
 		{
-			
-			ContainedHamsters.Add(Actor);
-			if(bShouldItExplode){
+
+			if (bShouldItExplode == false)
+			{
+				ContainedHamsters.Add(Actor);
+			}
+			else
+			{
 				Hamster->StartExploding();
+				DestroyDepositBox();
 			}
 		}
 	}
@@ -72,11 +75,24 @@ bool UDepositBoxTrigger::IsValidHamster(AActor *HamsterActor, AExplosive *&Depos
 		DepositedHamster = Cast<AExplosive>(HamsterActor);
 		if (DepositedHamster != nullptr && ContainedHamsters.Contains(HamsterActor) == false)
 		{
-			ShouldExplode = DepositedHamster->HamsterColour != BoxColour;
+			ShouldExplode = DepositedHamster->HamsterColour != ThisDepositBox->BoxColour;
 			DepositedHamster->SetInBox(true);
 			return true;
 		}
 	}
 	ShouldExplode = false;
 	return false;
+}
+
+void UDepositBoxTrigger::SetupDepositBox(int32 _MaxHamsters, ADepositBox *_DepositBox)
+{
+	if (_DepositBox != nullptr)
+	{
+		MaxHamsters = _MaxHamsters;
+		ThisDepositBox = _DepositBox;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Deposit box is null"));
+	}
 }

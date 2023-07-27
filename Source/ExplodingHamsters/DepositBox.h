@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "HamsterEnums.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "DepositBox.generated.h"
@@ -9,13 +10,12 @@
 class UDepositBoxTrigger;
 class AExplodingHamstersGM;
 
-
 UCLASS()
 class EXPLODINGHAMSTERS_API ADepositBox : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ADepositBox();
 
@@ -23,14 +23,19 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EHamsterEnums BoxColour;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 MaxHamsters = 10;
+
+private:
 	UPROPERTY()
-	AExplodingHamstersGM* ExplodingHamstersGameMode;
+	AExplodingHamstersGM *ExplodingHamstersGameMode;
 	UPROPERTY(EditAnywhere, Category = "Deposit Box")
 	UDepositBoxTrigger *DepositBoxTrigger;
 	UPROPERTY(EditAnywhere, Category = "Movement")
