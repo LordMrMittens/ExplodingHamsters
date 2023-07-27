@@ -84,7 +84,7 @@ void ADepositBox::MoveBox()
 			GetWorldTimerManager().SetTimer(ReturnMovementDelayTimerHandle, this, &ADepositBox::StartReturnMovement, ReturnMovementDelay, false);
 			
 		}
-		else if (bBoxIsReturning && DistanceTraveled <= 3.0f)
+		else if (bBoxIsReturning && DistanceTraveled <= 10.0f)
 		{
 			SetActorLocation(StartingLocation);
 			bBoxIsMoving = false;
