@@ -43,7 +43,7 @@ void ADepositBox::BeginPlay()
 void ADepositBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	MoveBox(DeltaTime);
+	MoveBox();
 }
 
 void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
@@ -64,10 +64,12 @@ void ADepositBox::UpdateScore()
 		ExplodingHamstersGameMode->UpdateScore(DepositBoxTrigger->ContainedHamsters.Num());
 	}
 }
-void ADepositBox::MoveBox(float DeltaTime)
+void ADepositBox::MoveBox()
 {
+	
 	if (bBoxIsMoving)
 	{
+		float DeltaTime = GetWorld()->GetDeltaSeconds();
 		FVector CurrentLocation = GetActorLocation();
 		CurrentLocation += MovementVelocity * DeltaTime;
 		SetActorLocation(CurrentLocation);
@@ -92,16 +94,20 @@ void ADepositBox::MoveBox(float DeltaTime)
 	}
 }
 
+void ADepositBox::GameOverCount()
+{
+	bBoxIsEmptying = true;
+	bBoxIsMoving = true;
+	bBoxIsReturning = false;
+}
+
 void ADepositBox::OnGameIsOver()
 {
 	if (DepositBoxTrigger != nullptr)
 	{
 		if (DepositBoxTrigger->ContainedHamsters.Num() > 0)
 		{
-			ExplodingHamstersGameMode->ABoxIsMoving(); // this might not be needed or cause issues
-			bBoxIsEmptying = true;
-			bBoxIsMoving = true;
-			bBoxIsReturning = false;
+			GetWorldTimerManager().SetTimer(GameOverTimerHandle, this, &ADepositBox::GameOverCount, GameOverDelay, false);
 		}
 	}
 }

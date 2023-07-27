@@ -56,7 +56,12 @@ private:
 	bool bBoxIsMoving;
 	bool bBoxIsReturning;
 
-	void MoveBox(float DeltaTime);
+	void MoveBox();
+	void GameOverCount();
+
+	FTimerHandle GameOverTimerHandle;
+	UPROPERTY(EditAnywhere)
+	float GameOverDelay = .5f;
 
 
 };
