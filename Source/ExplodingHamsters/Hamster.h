@@ -51,4 +51,13 @@ public:
 	UMaterial *BlueMaterial;
 	UPROPERTY(EditAnywhere)
 	UMaterial *RedMaterial;
+
+	UPROPERTY(EditAnywhere)
+	float InitialMovementDistanceOffset = .5f;
+	UPROPERTY(EditAnywhere)
+	float InitialMovementSpeed = 100.f;
+
+	FVector TargetLocation;
+	void InitialMovement();
+	bool bHasJustSpawned = true;
 };

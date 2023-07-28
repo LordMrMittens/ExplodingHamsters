@@ -34,7 +34,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	USceneComponent* TargetDirection;
 	UPROPERTY(EditAnywhere)
-	FVector ShootingForce;
+	float ShootingForce;
 
 	UPROPERTY(EditAnywhere)
 	ADoor* Door;

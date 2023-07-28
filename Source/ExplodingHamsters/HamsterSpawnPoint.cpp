@@ -52,7 +52,7 @@ void AHamsterSpawnPoint::SpawnHamster()
 			int32 RandomColourIndex = FMath::RandRange(0, ColourLength - 1);
 			HamsterColour = static_cast<EHamsterEnums>(RandomColourIndex);
 			Hamster->SetHamsterColour(HamsterColour);
-
+			Hamster->TargetLocation= TargetDirection->GetComponentLocation();
 			AHamAIController *AIController = Cast<AHamAIController>(GetWorld()->SpawnActor(HamsterAIClass));
 			if (AIController != nullptr)
 			{
@@ -62,9 +62,7 @@ void AHamsterSpawnPoint::SpawnHamster()
 			{
 				UE_LOG(LogTemp, Error, TEXT("No AI Controller"));
 			}
-			
 			UGameplayStatics::FinishSpawningActor(Hamster, GetActorTransform());
-			//shoot hamster out
-		}
+
 	}
-}
+}}

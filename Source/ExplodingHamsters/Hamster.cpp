@@ -44,6 +44,9 @@ void AHamster::BeginPlay()
 void AHamster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (bHasJustSpawned){
+		InitialMovement();
+	}
 
 }
 
@@ -76,4 +79,17 @@ void AHamster::SetInBox(bool _bbIsInBox)
 void AHamster::SetHamsterColour(EHamsterEnums Colour)
 {
 	HamsterColour = Colour;
+}
+
+void AHamster::InitialMovement()
+{
+	
+	FVector NewPosition = FMath::VInterpTo(GetActorLocation(), TargetLocation, GetWorld()->GetDeltaSeconds(), InitialMovementSpeed);
+	SetActorLocation(NewPosition);
+	float DistanceToTarget = FVector::Dist(GetActorLocation(), TargetLocation);
+	if (DistanceToTarget<InitialMovementDistanceOffset)
+	{
+		bHasJustSpawned = false;
+		UE_LOG(LogTemp, Display, TEXT("Stopped Moving"));
+	}
 }
