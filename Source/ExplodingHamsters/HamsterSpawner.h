@@ -6,8 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "HamsterSpawner.generated.h"
 
-class AHamster;
-class AHamAIController;
+class AHamsterSpawnPoint;
 
 UCLASS()
 class EXPLODINGHAMSTERS_API AHamsterSpawner : public AActor
@@ -27,7 +26,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, Category="Spawning | Spawning Locations")
-	TArray<AActor*> HamsterSpawnLocations;
+	TArray<AHamsterSpawnPoint*> HamsterSpawnLocations;
 private:
 
 	UPROPERTY(EditAnywhere, Category="Debug")
@@ -44,10 +43,7 @@ private:
 
 	void SpawnHamster();
 
-	UPROPERTY(EditAnywhere, Category="Spawning | Prefab")
-	TSubclassOf<AHamster> HamsterClass;
-	UPROPERTY(EditAnywhere, Category="Spawning | Prefab")
-	TSubclassOf<AHamAIController> HamsterAIClass;
+
 	UFUNCTION()
 	void OnBoxIsMoving();
 	UFUNCTION()

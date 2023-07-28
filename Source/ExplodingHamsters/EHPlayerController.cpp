@@ -30,6 +30,6 @@ void AEHPlayerController::ShowScoreUpdatePanel()
 void AEHPlayerController::HideScoreUpdatePanel()
 {
         if(BigScoreWidget!=nullptr){
-        BigScoreWidget->RemoveFromViewport();
+        BigScoreWidget->RemoveFromParent();
     }
 }

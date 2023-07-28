@@ -3,11 +3,8 @@
 
 #include "HamsterSpawner.h"
 #include "Kismet/GameplayStatics.h"
-#include "Hamster.h"
-#include "HamAIController.h"
 #include "ExplodingHamstersGM.h"
-
-#define ENUM_LENGTH(EnumType) (static_cast<int32>(EnumType::EnumCount))
+#include "HamsterSpawnPoint.h"
 
 // Sets default values
 AHamsterSpawner::AHamsterSpawner()
@@ -51,26 +48,7 @@ void AHamsterSpawner::Tick(float DeltaTime)
 void AHamsterSpawner::SpawnHamster()
 {
 	int SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num()-1);
-
-	FTransform SpawnTransForm = HamsterSpawnLocations[SpawnLocationIndex]->GetActorTransform();
-	AHamster *Hamster = Cast<AHamster>(UGameplayStatics::BeginDeferredActorSpawnFromClass(GetWorld(), HamsterClass, SpawnTransForm));
-	if (Hamster != nullptr)
-	{
-		EHamsterEnums HamsterColour;
-		int32 ColourLength = ENUM_LENGTH(EHamsterEnums);
-		int32 RandomColourIndex = FMath::RandRange(0, ColourLength - 1);
-		HamsterColour = static_cast<EHamsterEnums>(RandomColourIndex);
-		Hamster->SetHamsterColour(HamsterColour);
-
-		AHamAIController* AIController = Cast<AHamAIController>(GetWorld()->SpawnActor(HamsterAIClass));
-		if(AIController !=nullptr){
-			AIController->Possess(Hamster);
-		} else{
-			UE_LOG(LogTemp, Error, TEXT("No AI Controller"));
-		}
-
-		UGameplayStatics::FinishSpawningActor(Hamster, SpawnTransForm);
-	}
+	HamsterSpawnLocations[SpawnLocationIndex]->SpawnHamster();
 
 	HamsterSpawnTime = FMath::Max(MinSpawnTime, HamsterSpawnTime - .2f);
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AHamsterSpawner::SpawnHamster, HamsterSpawnTime, false);
