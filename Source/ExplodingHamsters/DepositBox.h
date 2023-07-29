@@ -9,6 +9,7 @@
 
 class UDepositBoxTrigger;
 class AExplodingHamstersGM;
+class ADoor;
 
 UCLASS()
 class EXPLODINGHAMSTERS_API ADepositBox : public AActor
@@ -66,5 +67,18 @@ private:
 	void StartReturnMovement();
 	float ReturnMovementDelay = 2.0f;
 
+	UPROPERTY(EditAnywhere,Category = "Door" )
+	ADoor *Door;
 
+	UPROPERTY(EditAnywhere,Category = "Door")
+	FVector DoorOpeningDirection;
+
+	UPROPERTY(EditAnywhere,Category = "Door")
+	float DoorOpeningDistance;
+
+	UPROPERTY(EditAnywhere,Category = "Door")
+	float DoorMovementSpeed;
+
+	UPROPERTY(EditAnywhere,Category = "Door")
+	float CloseDoorDelay;
 };

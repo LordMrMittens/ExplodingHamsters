@@ -27,7 +27,7 @@ void AHamsterSpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
 	if(Door != nullptr){
-		Door->SetupDoor(OpeningDirection, OpeningDistance, MovementSpeed);
+		Door->SetupDoor(OpeningDirection, OpeningDistance, MovementSpeed, CloseDoorDelay);
 	}
 	
 }

@@ -10,7 +10,13 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"MLTable": "yaml",
+			"bitset": "cpp",
+			"set": "cpp",
+			"__tree": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

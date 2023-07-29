@@ -5,6 +5,7 @@
 #include "DepositBoxTrigger.h"
 #include "ExplodingHamstersGM.h"
 #include "Kismet/GameplayStatics.h"
+#include "Door.h"
 
 // Sets default values
 ADepositBox::ADepositBox()
@@ -37,6 +38,11 @@ void ADepositBox::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Deposit Box Not Found"));
 	}
+	if(Door!= nullptr){
+		Door->SetupDoor(DoorOpeningDirection,DoorOpeningDistance,DoorMovementSpeed,CloseDoorDelay);
+	} else{
+		UE_LOG(LogTemp, Error, TEXT("Door is null"));
+	}
 }
 
 // Called every frame
@@ -50,6 +56,9 @@ void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 {
 	if (!bBoxIsEmptying)
 	{
+		if(Door!=nullptr){
+			Door->OpenDoor();
+		}
 		ExplodingHamstersGameMode->ABoxIsMoving();
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;
@@ -97,6 +106,9 @@ void ADepositBox::MoveBox()
 
 void ADepositBox::GameOverCount()
 {
+	if(Door!=nullptr){
+		Door->OpenDoor();
+	}
 	bBoxIsEmptying = true;
 	bBoxIsMoving = true;
 	bBoxIsReturning = false;

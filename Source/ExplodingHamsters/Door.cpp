@@ -33,17 +33,24 @@ void ADoor::Tick(float DeltaTime)
 	}
 }
 
-void ADoor::SetupDoor(FVector _OpeningSpeed, float _OpeningDistance, float _MovementSpeed)
+void ADoor::SetupDoor(FVector _OpeningSpeed, float _OpeningDistance, float _MovementSpeed, float _CloseDelay)
 {
 	OpeningDirection = _OpeningSpeed;
 	OpeningDistance = _OpeningDistance;
 	MovementSpeed = _MovementSpeed;
+	CloseDelay = _CloseDelay;
 	StartingPosition = GetActorLocation();
 	TargetPosition = StartingPosition + OpeningDirection.GetSafeNormal() * OpeningDistance;
 }
 
 void ADoor::OpenDoor()
 {
+	bShouldMove = true;
+}
+
+void ADoor::CloseDoor()
+{
+	bShouldReturn = true;
 	bShouldMove = true;
 }
 
@@ -56,14 +63,15 @@ void ADoor::MoveDoor(FVector _TargetPosition)
 	{
 		if (_TargetPosition != StartingPosition)
 		{
-			bShouldReturn = true;
-			UE_LOG(LogTemp, Warning, TEXT("Should be returning"));
+			
+			FTimerHandle DoorCloseDelayTimerHandle;
+			GetWorldTimerManager().SetTimer(DoorCloseDelayTimerHandle, this, &ADoor::CloseDoor, CloseDelay, false);
+			bShouldMove = false;
 		}
 		else
 		{
 			bShouldMove = false;
 			bShouldReturn = false;
-			UE_LOG(LogTemp, Warning, TEXT("Has Returned"));
 		}
 	}
 }

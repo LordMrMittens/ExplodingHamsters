@@ -23,12 +23,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void SetupDoor(FVector _OpeningSpeed, float _OpeningDistance,  float _MovementSpeed);
+	void SetupDoor(FVector _OpeningDirection, float _OpeningDistance,  float _MovementSpeed, float _CloseDelay);
 	void OpenDoor();
+	void CloseDoor();
 	
 
 private:
 	float MovementSpeed;
+	float CloseDelay;
 	FVector OpeningDirection;
 	FVector StartingPosition;
 	float OpeningDistance;
