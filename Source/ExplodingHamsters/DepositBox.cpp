@@ -6,6 +6,7 @@
 #include "ExplodingHamstersGM.h"
 #include "Kismet/GameplayStatics.h"
 #include "Door.h"
+#include "Explosive.h"
 
 // Sets default values
 ADepositBox::ADepositBox()
@@ -86,9 +87,16 @@ void ADepositBox::UpdateScore()
 }
 void ADepositBox::MoveBox()
 {
-	
+
 	if (bBoxIsMoving)
 	{
+		for (auto &Location : LocationsTMap)
+		{
+			if (Location.Value != nullptr)
+			{
+				Location.Value->bShouldForcefullyMove=false;
+			}
+		}
 		float DeltaTime = GetWorld()->GetDeltaSeconds();
 		FVector CurrentLocation = GetActorLocation();
 		CurrentLocation += MovementVelocity * DeltaTime;
@@ -131,6 +139,29 @@ void ADepositBox::StartReturnMovement()
 	MovementVelocity *= -1;
 	bBoxIsReturning = true;
 	bBoxIsEmptying = false;
+}
+
+void ADepositBox::SetHamsterSlot(AExplosive* Hamster)
+{
+	for (auto& Location : LocationsTMap)
+	{
+		if(Location.Value==nullptr){
+			Location.Value = Hamster;
+			Hamster->TargetLocation = Location.Key->GetComponentLocation();
+			Hamster->bShouldForcefullyMove = true;
+			break;
+		}
+	}
+	
+}
+
+void ADepositBox::ClearHamsterSlots()
+{
+		for (auto& Location : LocationsTMap)
+	{
+
+		Location.Value = nullptr;
+	}
 }
 
 void ADepositBox::OnGameIsOver()

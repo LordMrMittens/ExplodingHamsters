@@ -10,6 +10,7 @@
 class UDepositBoxTrigger;
 class AExplodingHamstersGM;
 class ADoor;
+class AExplosive;
 
 UCLASS()
 class EXPLODINGHAMSTERS_API ADepositBox : public AActor
@@ -36,6 +37,8 @@ public:
 
 		UFUNCTION()
 	void OnGameIsOver();
+	void SetHamsterSlot(AExplosive* Hamster);
+	void ClearHamsterSlots();
 
 private:
 	UPROPERTY()
@@ -84,5 +87,7 @@ private:
 
 	TArray<USceneComponent*> HamsterLocations;
 
-	TMap<USceneComponent*, AActor*> LocationsTMap;
+	TMap<USceneComponent*, AExplosive*> LocationsTMap;
+
+	
 };

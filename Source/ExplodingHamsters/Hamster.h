@@ -59,5 +59,5 @@ public:
 
 	FVector TargetLocation;
 	void InitialMovement();
-	bool bHasJustSpawned = true;
+	bool bShouldForcefullyMove = true;
 };

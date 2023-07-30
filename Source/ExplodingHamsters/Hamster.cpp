@@ -44,7 +44,7 @@ void AHamster::BeginPlay()
 void AHamster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (bHasJustSpawned){
+	if (bShouldForcefullyMove){
 		InitialMovement();
 	}
 
@@ -89,7 +89,8 @@ void AHamster::InitialMovement()
 	float DistanceToTarget = FVector::Dist(GetActorLocation(), TargetLocation);
 	if (DistanceToTarget<InitialMovementDistanceOffset)
 	{
-		bHasJustSpawned = false;
-		UE_LOG(LogTemp, Display, TEXT("Stopped Moving"));
+		bShouldForcefullyMove = false;
+		if(bIsInBox){
+		UE_LOG(LogTemp, Display, TEXT("Stopped Moving"));}
 	}
 }

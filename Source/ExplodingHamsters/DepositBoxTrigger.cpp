@@ -26,8 +26,9 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		if (IsValidHamster(Actor, Hamster, bShouldItExplode))
 		{
 
-			if (bShouldItExplode == false)
+			if (bShouldItExplode == false && ContainedHamsters.Contains(Actor) == false)
 			{
+				ThisDepositBox->SetHamsterSlot(Hamster);
 				ContainedHamsters.Add(Actor);
 			}
 			else
@@ -45,6 +46,7 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 
 void UDepositBoxTrigger::ResetDepositBox()
 {
+	ThisDepositBox->ClearHamsterSlots();
 	for (AActor *Actor : ContainedHamsters)
 	{
 		if (Actor != nullptr)
