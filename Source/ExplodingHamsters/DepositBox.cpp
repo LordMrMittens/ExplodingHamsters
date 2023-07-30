@@ -43,6 +43,17 @@ void ADepositBox::BeginPlay()
 	} else{
 		UE_LOG(LogTemp, Error, TEXT("Door is null"));
 	}
+	GetComponents<USceneComponent>(HamsterLocations);
+	for (int32 i = 0; i < HamsterLocations.Num(); i++)
+	{
+		if (HamsterLocations[i] == GetRootComponent())
+		{
+			HamsterLocations.RemoveAt(i);
+		} else {
+			LocationsTMap.Add(HamsterLocations[i], nullptr);
+		}
+	}
+	
 }
 
 // Called every frame

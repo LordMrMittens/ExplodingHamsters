@@ -81,4 +81,8 @@ private:
 
 	UPROPERTY(EditAnywhere,Category = "Door")
 	float CloseDoorDelay;
+
+	TArray<USceneComponent*> HamsterLocations;
+
+	TMap<USceneComponent*, AActor*> LocationsTMap;
 };
