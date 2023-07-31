@@ -45,13 +45,13 @@ void ADepositBox::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("Door is null"));
 	}
 	GetComponents<USceneComponent>(HamsterLocations);
-	for (int32 i = 0; i < HamsterLocations.Num(); i++)
+
+	for (USceneComponent* Location : HamsterLocations)
 	{
-		if (HamsterLocations[i] == GetRootComponent())
-		{
-			HamsterLocations.RemoveAt(i);
-		} else {
-			LocationsTMap.Add(HamsterLocations[i], nullptr);
+		if(Location->ComponentTags.Contains("Slot")){
+			LocationsTMap.Add(Location, nullptr);
+		} else{
+			HamsterLocations.Remove(Location);
 		}
 	}
 }
@@ -154,6 +154,7 @@ void ADepositBox::SetHamsterSlot(AExplosive* Hamster)
 		if(Location.Value==nullptr){
 			Location.Value = Hamster;
 			Hamster->TargetLocation = Location.Key->GetComponentLocation();
+			Hamster->InitialMovementDistanceOffset =2.0f ;
 			Hamster->bShouldForcefullyMove = true;
 			break;
 		}
