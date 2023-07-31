@@ -27,9 +27,9 @@ public:
 	float ScoreUpdatecounter = 0.f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Scoring")
-	int32 Score = 0;
+	int32 Score;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scoring")
-	int32 CurrentScore = 0;
+	int32 CurrentScore;
 
 	void ABoxIsMoving();
 	void ABoxCompleted();
@@ -55,4 +55,17 @@ protected:
 
 private:
 	void CheckPlayerReferences();
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UHighScoreSaveGame> SaveGameClass;
+
+	UPROPERTY(VisibleAnywhere)
+	TArray<struct FScoreStruct> HighScores;
+
+	void UpdateHighScores();
+	void GetHighScores();
+
+	bool bHasGameEnded = false;
+
+	
 };
