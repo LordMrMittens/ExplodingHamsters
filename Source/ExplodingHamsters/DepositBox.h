@@ -60,7 +60,7 @@ private:
 	bool bBoxIsMoving;
 	bool bBoxIsReturning;
 
-	void MoveBox();
+	void MoveBox(FVector _MovementVelocity, FVector _StartingPoint);
 	void GameOverCount();
 
 	FTimerHandle GameOverTimerHandle;

@@ -54,14 +54,23 @@ void ADepositBox::BeginPlay()
 			LocationsTMap.Add(HamsterLocations[i], nullptr);
 		}
 	}
-	
 }
 
 // Called every frame
 void ADepositBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	MoveBox();
+	if (bBoxIsMoving)
+	{
+		if (bBoxIsReturning == false)
+		{
+			MoveBox(MovementVelocity, StartingLocation);
+		}
+		else
+		{
+			MoveBox(-MovementVelocity, StartingLocation + MovementVelocity.GetSafeNormal() * MovementDistance);
+		}
+	}
 }
 
 void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
@@ -85,58 +94,55 @@ void ADepositBox::UpdateScore()
 		ExplodingHamstersGameMode->UpdateScore(DepositBoxTrigger->ContainedHamsters.Num());
 	}
 }
-void ADepositBox::MoveBox()
+void ADepositBox::MoveBox(FVector _MovementVelocity, FVector _StartingPoint)
 {
-
-	if (bBoxIsMoving)
-	{
 		for (auto &Location : LocationsTMap)
 		{
 			if (Location.Value != nullptr)
 			{
-				Location.Value->bShouldForcefullyMove=false;
+			Location.Value->bShouldForcefullyMove = false;
 			}
 		}
 		float DeltaTime = GetWorld()->GetDeltaSeconds();
 		FVector CurrentLocation = GetActorLocation();
-		CurrentLocation += MovementVelocity * DeltaTime;
+		CurrentLocation += _MovementVelocity * DeltaTime;
 		SetActorLocation(CurrentLocation);
-		float DistanceTraveled = FVector::Distance(StartingLocation, GetActorLocation());
+		float DistanceTraveled = FVector::Distance(_StartingPoint, GetActorLocation());
 		if (DistanceTraveled >= MovementDistance)
 		{
-			SetActorLocation(StartingLocation + MovementVelocity.GetSafeNormal() * MovementDistance);
+			if (bBoxIsReturning)
+			{
+			SetActorLocation(StartingLocation);
+			bBoxIsMoving = false;
+			bBoxIsReturning = false;
+			ExplodingHamstersGameMode->ABoxCompleted();
+			}
+			else
+			{
+			SetActorLocation(_StartingPoint + _MovementVelocity.GetSafeNormal() * MovementDistance);
 			UpdateScore();
 			DepositBoxTrigger->ResetDepositBox();
 			FTimerHandle ReturnMovementDelayTimerHandle;
 			bBoxIsMoving = false;
 			GetWorldTimerManager().SetTimer(ReturnMovementDelayTimerHandle, this, &ADepositBox::StartReturnMovement, ReturnMovementDelay, false);
-			
+			}
 		}
-		else if (bBoxIsReturning && DistanceTraveled <= 10.0f)
-		{
-			SetActorLocation(StartingLocation);
-			bBoxIsMoving = false;
-			bBoxIsReturning = false;
-			MovementVelocity *= -1;
-			ExplodingHamstersGameMode->ABoxCompleted();
-		}
-	}
 }
 
 void ADepositBox::GameOverCount()
 {
-	if(Door!=nullptr){
-		Door->OpenDoor();
-	}
-	bBoxIsEmptying = true;
-	bBoxIsMoving = true;
-	bBoxIsReturning = false;
+		if (Door != nullptr)
+		{
+			Door->OpenDoor();
+		}
+		bBoxIsEmptying = true;
+		bBoxIsMoving = true;
+		bBoxIsReturning = false;
 }
 
 void ADepositBox::StartReturnMovement()
 {
 	bBoxIsMoving = true;
-	MovementVelocity *= -1;
 	bBoxIsReturning = true;
 	bBoxIsEmptying = false;
 }
