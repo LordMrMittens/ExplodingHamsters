@@ -37,9 +37,28 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 private:
 UPROPERTY(EditAnywhere)
+
 	float ExplosionTime = 10;
 
 	FTimerHandle ExplosionTimerHandle;
 
 	class AExplodingHamstersGM* GameMode;
+
+	UPROPERTY(EditAnywhere, Category = "Explosion Feedcback")
+	float FeedbackFrequency;
+
+	UPROPERTY(EditAnywhere, Category = "Explosion Feedcback")
+	float MaxScale;
+		UPROPERTY(EditAnywhere, Category = "Explosion Feedcback")
+	float DisplaySecondsBeforeExplosion  =5.f;
+
+	float OriginalScale; //this is always the original scale
+
+	float CurrentScale;
+
+	float TimeElapsed;
+
+	bool IsCloseToExploding();
+
+	void ShowExplosionFeedback();
 };

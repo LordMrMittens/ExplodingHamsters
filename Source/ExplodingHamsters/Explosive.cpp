@@ -31,6 +31,9 @@ void AExplosive::BeginPlay()
     {
         UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
     }
+
+	OriginalScale = GetActorScale3D().X;
+	TimeElapsed = 0.f;
 	
 }
 
@@ -40,6 +43,11 @@ void AExplosive::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if(bIsInBox){
 		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
+		SetActorScale3D(FVector(OriginalScale,OriginalScale,OriginalScale));
+	}
+	if(IsCloseToExploding() && GetWorldTimerManager().IsTimerPaused(ExplosionTimerHandle)==false){
+		
+		ShowExplosionFeedback();
 	}
 
 }
@@ -78,8 +86,9 @@ void AExplosive::OnBoxStopped()
 {
 	if (bIsInBox == false)
 	{
-		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
+		GetWorldTimerManager().UnPauseTimer(ExplosionTimerHandle);
 	}
+
 }
 
 void AExplosive::Explode()
@@ -94,5 +103,19 @@ void AExplosive::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+bool AExplosive::IsCloseToExploding()
+{
+	return GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle)<DisplaySecondsBeforeExplosion;
+}
+
+void AExplosive::ShowExplosionFeedback()
+{
+	float DeltaTime = GetWorld()->GetDeltaSeconds();
+	TimeElapsed += DeltaTime;
+	float ScalingFactor = FMath::Sin(2 * PI * TimeElapsed * FeedbackFrequency);
+    CurrentScale = OriginalScale + (MaxScale - OriginalScale) * 0.5f * (1.0f + ScalingFactor);
+    SetActorScale3D(FVector(CurrentScale));
 }
 
