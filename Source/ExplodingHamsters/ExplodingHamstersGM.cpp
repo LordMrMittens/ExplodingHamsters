@@ -17,6 +17,7 @@ void AExplodingHamstersGM::BeginPlay()
 {
     Super::BeginPlay();
     GetHighScores();
+    bShouldRecordNewHighScore = true;
 }
 
 void AExplodingHamstersGM::CheckPlayerReferences()
@@ -89,6 +90,8 @@ void AExplodingHamstersGM::OnGameIsOver()
 
 void AExplodingHamstersGM::UpdateHighScores()
 {
+        if (bShouldRecordNewHighScore == true)
+    {
     FScoreStruct ThisScore;
     ThisScore.RecordedScore= this->CurrentScore;
     ThisScore.ScoreName= "Placeholder";
@@ -99,9 +102,8 @@ void AExplodingHamstersGM::UpdateHighScores()
     }
     SaveGameInstance->HighScores.Add(ThisScore);
 
-     SaveGameInstance->HighScores.Sort([](const FScoreStruct& A, const FScoreStruct& B) {
-        return A.RecordedScore > B.RecordedScore;
-    });
+    SaveGameInstance->HighScores.Sort([](const FScoreStruct &A, const FScoreStruct &B)
+                                      { return A.RecordedScore > B.RecordedScore; });
 
     // Ensure that the HighScores array has a maximum of 10 scores
     const int32 MaxScores = 10;
@@ -114,17 +116,21 @@ void AExplodingHamstersGM::UpdateHighScores()
     {
         UE_LOG(LogTemp, Error, TEXT("Reading off instance name :%s, Score: %d"), *AScore.ScoreName, AScore.RecordedScore);
     }
-    
-    UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
+
+        UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
+        bShouldRecordNewHighScore = false;
+    }
 }
 
 void AExplodingHamstersGM::GetHighScores()
 {
-    UHighScoreSaveGame* SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("HighScoresSaveSlot"), 0));
-        if (SaveGameInstance)
+    UHighScoreSaveGame *SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("HighScoresSaveSlot"), 0));
+    if (SaveGameInstance)
     {
         HighScores = SaveGameInstance->HighScores;
-    } else {
+    }
+    else
+    {
         UE_LOG(LogTemp, Error, TEXT("No high scores detected"));
     }
 }
