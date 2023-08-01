@@ -30,4 +30,15 @@ private:
 	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UHighScoresWidget> HighScoreWidgetClass;
+
+		UPROPERTY(EditAnywhere)
+	TSubclassOf<class UHighScoreSaveGame> SaveGameClass;
+
+	UPROPERTY(VisibleAnywhere)
+	TArray<struct FScoreStruct> HighScores;
+
+	void UpdateHighScores();
+
+	UFUNCTION()
+	void OnGameOver();
 };

@@ -20,5 +20,6 @@ void UHighScoresWidget::PopulateHighScores(TArray<struct FScoreStruct> AllScores
     }
 
     FText ScoreList = FText::Join(FText::FromString("\n"), ScoreEntries);
+    ScoresText->SetText(ScoreList);
     
 }
