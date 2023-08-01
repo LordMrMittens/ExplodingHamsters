@@ -17,8 +17,10 @@ public:
 	class UScoreWidget *ScoreWidget;
 	UScoreWidget *BigScoreWidget;
 	class UHighScoresWidget *HighScoreList;
+	class UEndGameWidget* EndGameWidget;
 	void ShowPanel(UUserWidget* _Panel);
 	void HidePanel(UUserWidget* _Panel);
+	void UpdateHighScores();
 
 protected:
 	virtual void BeginPlay() override;
@@ -29,6 +31,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<UEndGameWidget> EndGameWidgetClass;
+		UPROPERTY(EditAnywhere)
 	TSubclassOf<UHighScoresWidget> HighScoreWidgetClass;
 
 		UPROPERTY(EditAnywhere)
@@ -37,7 +41,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<struct FScoreStruct> HighScores;
 
-	void UpdateHighScores();
+	
+	void DisplayGameOverScreen();
 
 	UFUNCTION()
 	void OnGameOver();

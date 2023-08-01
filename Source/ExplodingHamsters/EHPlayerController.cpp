@@ -8,13 +8,13 @@
 #include "ScoreStruct.h"
 #include "HighScoresWidget.h"
 #include "ExplodingHamstersGM.h"
+#include "EndGameWidget.h"
 
 void AEHPlayerController::BeginPlay()
 {
     Super::BeginPlay();
     HighScores.Empty();
     ScoreWidget = Cast<UScoreWidget>(CreateWidget(this, ScoreWidgetClass, FName("ScoreWidget")));
-
     BigScoreWidget = Cast<UScoreWidget>(CreateWidget(this, BigScoreWidgetClass, FName("BigScoreWidget")));
 
     ShowPanel(ScoreWidget);
@@ -44,6 +44,7 @@ void AEHPlayerController::HidePanel(UUserWidget *_Panel)
 
 void AEHPlayerController::UpdateHighScores()
 {
+    HidePanel(EndGameWidget);
     AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
     if (GameMode)
     {
@@ -76,7 +77,18 @@ void AEHPlayerController::UpdateHighScores()
     }
 }
 
+void AEHPlayerController::DisplayGameOverScreen()
+{
+    EndGameWidget = Cast<UEndGameWidget>(CreateWidget(this, EndGameWidgetClass, FName("EndGameWidget")));
+    if (EndGameWidget)
+    {
+        EndGameWidget->SetupWidgetButton();
+        EndGameWidget->SetOwningPlayer(this);
+        ShowPanel(EndGameWidget);
+    }
+}
+
 void AEHPlayerController::OnGameOver()
 {
-    GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::UpdateHighScores, 3, false);
+    GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::DisplayGameOverScreen, 4, false);
 }

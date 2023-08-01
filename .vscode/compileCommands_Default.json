@@ -112,6 +112,22 @@
 		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
 	},
 	{
+		"file": "D:\\Unreal\\ExplodingHamsters\\Source\\ExplodingHamsters\\EndGameWidget.cpp",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Unreal\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Unreal\\ExplodingHamsters\\Source\\ExplodingHamsters\\EndGameWidget.h",
+		"arguments": [
+			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Unreal\\ExplodingHamsters\\.vscode\\compileCommands_Default\\ExplodingHamsters.261.rsp"
+		],
+		"directory": "D:\\Unreal\\UE_5.2\\Engine\\Source"
+	},
+	{
 		"file": "D:\\Unreal\\ExplodingHamsters\\Source\\ExplodingHamsters\\ExplodingHamsters.Build.cs",
 		"arguments": [
 			"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.33.31629\\bin\\Hostx64\\x64\\cl.exe",
