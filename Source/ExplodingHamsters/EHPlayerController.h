@@ -20,7 +20,7 @@ public:
 	class UEndGameWidget* EndGameWidget;
 	void ShowPanel(UUserWidget* _Panel);
 	void HidePanel(UUserWidget* _Panel);
-	void UpdateHighScores();
+	void UpdateHighScores(FText _ScoreName);
 
 protected:
 	virtual void BeginPlay() override;

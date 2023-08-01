@@ -42,7 +42,7 @@ void AEHPlayerController::HidePanel(UUserWidget *_Panel)
     }
 }
 
-void AEHPlayerController::UpdateHighScores()
+void AEHPlayerController::UpdateHighScores(FText _ScoreName)
 {
     HidePanel(EndGameWidget);
     AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
@@ -50,7 +50,7 @@ void AEHPlayerController::UpdateHighScores()
     {
         FScoreStruct ThisScore;
         ThisScore.RecordedScore = GameMode->CurrentScore;
-        ThisScore.ScoreName = "Placeholder";
+        ThisScore.ScoreName = _ScoreName.ToString();
         UHighScoreSaveGame *SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("HighScoresSaveSlot"), 0));
         if (!SaveGameInstance)
         {
@@ -80,6 +80,7 @@ void AEHPlayerController::UpdateHighScores()
 void AEHPlayerController::DisplayGameOverScreen()
 {
     EndGameWidget = Cast<UEndGameWidget>(CreateWidget(this, EndGameWidgetClass, FName("EndGameWidget")));
+    
     if (EndGameWidget)
     {
         EndGameWidget->SetupWidgetButton();

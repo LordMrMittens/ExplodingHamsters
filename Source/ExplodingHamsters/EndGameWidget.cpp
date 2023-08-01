@@ -3,7 +3,11 @@
 
 #include "EndGameWidget.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
 #include "EHPlayerController.h"
+#include "ExplodingHamstersGM.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/EditableTextBox.h"
 
 
 void UEndGameWidget::SetupWidgetButton()
@@ -13,13 +17,15 @@ void UEndGameWidget::SetupWidgetButton()
     } else{
         UE_LOG(LogTemp, Error, TEXT("Button is null"));
     }
+    AExplodingHamstersGM* GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
+    FString Score = FString::Printf( TEXT("%d"), GameMode->CurrentScore);
+    ScoreText->SetText(FText::FromString(Score));
 }
 
 void UEndGameWidget::OnButtonClicked()
 {
-    UE_LOG(LogTemp, Display, TEXT("Button Pressed"));
     AEHPlayerController* PlayerController  = Cast<AEHPlayerController>(GetOwningPlayer());
-    if(PlayerController != nullptr){
-        PlayerController->UpdateHighScores();
+    if(PlayerController != nullptr && ScoreName!= nullptr){
+        PlayerController->UpdateHighScores(ScoreName->GetText());
     }
 }

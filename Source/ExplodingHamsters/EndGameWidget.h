@@ -17,9 +17,14 @@ class EXPLODINGHAMSTERS_API UEndGameWidget : public UUserWidget
 		 
 	public:
 	void SetupWidgetButton();
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* ScoreText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UButton* ContinueButton;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UEditableTextBox* ScoreName;
 
 	UFUNCTION()
 	void OnButtonClicked();
