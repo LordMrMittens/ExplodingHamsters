@@ -4,6 +4,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "ScoreWidget.h"
 #include "HighScoresWidget.h"
+#include "EndScreenWidget.h"
 
 void AEHPlayerController::BeginPlay()
 {
@@ -12,40 +13,30 @@ void AEHPlayerController::BeginPlay()
     ScoreWidget = Cast<UScoreWidget>(CreateWidget(this, ScoreWidgetClass, FName("ScoreWidget")));
     BigScoreWidget = Cast<UScoreWidget>(CreateWidget(this, BigScoreWidgetClass, FName("BigScoreWidget")));
     HighScoresWidget = Cast<UHighScoresWidget>(CreateWidget(this, HighScoresWidgetClass, FName("HighScores")));
-    if (ScoreWidget != nullptr)
+    EndScreenWidget = Cast<UEndScreenWidget>(CreateWidget(this, EndScreenWidgetClass, FName("EndScreenWidget")));
+    ShowPanel(ScoreWidget);
+    
+}
+
+void AEHPlayerController::RegisterHighScore()
+{
+    HidePanel(EndScreenWidget);
+    ShowPanel(HighScoresWidget);
+    
+}
+
+void AEHPlayerController::ShowPanel(UUserWidget *_PanelToShow)
+{
+    if (_PanelToShow != nullptr)
     {
-        ScoreWidget->AddToViewport(0);
+        _PanelToShow->AddToViewport(0);
     }
-    else
+}
+
+void AEHPlayerController::HidePanel(UUserWidget *_PanelToHide)
+{
+    if (_PanelToHide != nullptr)
     {
-        UE_LOG(LogTemp, Error, TEXT("No UI Created"));
-    }
-}
-
-void AEHPlayerController::ShowScoreUpdatePanel()
-{
-    if(BigScoreWidget!=nullptr){
-        BigScoreWidget->AddToViewport(0);
-    }
-}
-
-void AEHPlayerController::HideScoreUpdatePanel()
-{
-        if(BigScoreWidget!=nullptr){
-        BigScoreWidget->RemoveFromParent();
-    }
-}
-
-void AEHPlayerController::ShowHighScoresPanel()
-{
-        if(HighScoresWidget!=nullptr){
-        HighScoresWidget->AddToViewport(0);
-    }
-}
-
-void AEHPlayerController::HideHighScoresPanel()
-{
-            if(HighScoresWidget!=nullptr){
-        HighScoresWidget->RemoveFromParent();
+        _PanelToHide->RemoveFromParent();
     }
 }

@@ -34,11 +34,15 @@ public:
 	void ABoxIsMoving();
 	void ABoxCompleted();
 	void OnGameIsOver();
+	void UpdateHighScores(FText _ScoreName);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
 	class UScoreWidget *ScoreWidget;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
 	UScoreWidget *BigScoreWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
+	class UEndScreenWidget *EndScreenWidget;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
 	class UHighScoresWidget *HighScoresWidget;
@@ -65,11 +69,14 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<struct FScoreStruct> HighScores;
 
-	void UpdateHighScores();
+	
 	void GetHighScores();
 
-	bool bHasGameEnded = false;
-	bool bShouldRecordNewHighScore = true;
+	UPROPERTY(EditAnywhere);
+	float EndOfGameLogicDela = 5;
+
+	void EndOfGameSequence();
+	
 
 	
 };

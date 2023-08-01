@@ -18,11 +18,11 @@ class EXPLODINGHAMSTERS_API AEHPlayerController : public APlayerController
 	class UScoreWidget* ScoreWidget;
 	UScoreWidget* BigScoreWidget;
 	class UHighScoresWidget* HighScoresWidget;
+	class UEndScreenWidget* EndScreenWidget;
 
-	void ShowScoreUpdatePanel();
-	void HideScoreUpdatePanel();
-	void ShowHighScoresPanel();
-	void HideHighScoresPanel();
+	void ShowPanel(UUserWidget* _PanelToShow);
+	void HidePanel(UUserWidget* _PanelToHide);
+	
 
 	protected:
 	virtual void BeginPlay() override;
@@ -33,7 +33,12 @@ class EXPLODINGHAMSTERS_API AEHPlayerController : public APlayerController
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<UEndScreenWidget> EndScreenWidgetClass;
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<UHighScoresWidget> HighScoresWidgetClass;
+
+	UFUNCTION()
+	void RegisterHighScore();
 
 	
 	

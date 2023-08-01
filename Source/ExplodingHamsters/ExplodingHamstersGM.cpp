@@ -8,6 +8,7 @@
 #include "HighScoreSaveGame.h"
 #include "ScoreStruct.h"
 #include "HighScoresWidget.h"
+#include "EndScreenWidget.h"
 
 
 AExplodingHamstersGM::AExplodingHamstersGM()
@@ -18,7 +19,6 @@ void AExplodingHamstersGM::BeginPlay()
 {
     Super::BeginPlay();
     GetHighScores();
-    bShouldRecordNewHighScore = true;
 }
 
 void AExplodingHamstersGM::CheckPlayerReferences()
@@ -45,7 +45,7 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
 
     if (Score < CurrentScore && PlayerController != nullptr)
     {
-        PlayerController->ShowScoreUpdatePanel();
+        PlayerController->ShowPanel(PlayerController->BigScoreWidget);
         ScoreUpdatecounter += DeltaTime;
         if (ScoreUpdatecounter > ScoreUpdateSpeed)
         {
@@ -76,30 +76,23 @@ void AExplodingHamstersGM::ABoxIsMoving()
 
 void AExplodingHamstersGM::ABoxCompleted()
 {
-    PlayerController->HideScoreUpdatePanel();
+    PlayerController->HidePanel(PlayerController->BigScoreWidget);
     BoxCompletedMovement.Broadcast();
-    if( bHasGameEnded){
-        UpdateHighScores();
-        GetHighScores();
-        PlayerController->HighScoresWidget->PopulateHighScores(HighScores);
-        PlayerController->ShowHighScoresPanel();
-    }
 }
 
 void AExplodingHamstersGM::OnGameIsOver()
 {
     OnGameOver.Broadcast();
-    bHasGameEnded = true;
+    FTimerHandle EndOfGameLogicHandle;
+    GetWorldTimerManager().SetTimer(EndOfGameLogicHandle, this, &AExplodingHamstersGM::EndOfGameSequence, EndOfGameLogicDela , false);
     
 }
 
-void AExplodingHamstersGM::UpdateHighScores()
+void AExplodingHamstersGM::UpdateHighScores(FText _ScoreName)
 {
-        if (bShouldRecordNewHighScore == true)
-    {
     FScoreStruct ThisScore;
     ThisScore.RecordedScore= this->CurrentScore;
-    ThisScore.ScoreName= "Placeholder";
+    ThisScore.ScoreName= _ScoreName.ToString();
     UHighScoreSaveGame* SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("HighScoresSaveSlot"), 0));
     if (!SaveGameInstance)
     {
@@ -115,8 +108,7 @@ void AExplodingHamstersGM::UpdateHighScores()
         SaveGameInstance->HighScores.RemoveAt(MaxScores, SaveGameInstance->HighScores.Num() - MaxScores, true);
     }
         UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
-        bShouldRecordNewHighScore = false;
-    }
+    PlayerController->HighScoresWidget->PopulateHighScores(HighScores);
 }
 
 void AExplodingHamstersGM::GetHighScores()
@@ -130,4 +122,11 @@ void AExplodingHamstersGM::GetHighScores()
     {
         UE_LOG(LogTemp, Error, TEXT("No high scores detected"));
     }
+}
+
+void AExplodingHamstersGM::EndOfGameSequence()
+{
+    //UpdateHighScores();
+    GetHighScores();
+    PlayerController->ShowPanel(PlayerController->EndScreenWidget);
 }
