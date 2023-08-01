@@ -38,10 +38,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
 	class UScoreWidget *ScoreWidget;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
-	UScoreWidget *BigScoreWidget;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Scoring")
-	class UHighScoresWidget *HighScoresWidget;
+	class UScoreWidget *BigScoreWidget;
 
 	UPROPERTY()
 	class AEHPlayerController *PlayerController;
