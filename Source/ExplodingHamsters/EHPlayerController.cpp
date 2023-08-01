@@ -49,27 +49,31 @@ void AEHPlayerController::UpdateHighScores()
     FScoreStruct ThisScore;
     AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
     if (GameMode)
-    {/*
-        ThisScore.RecordedScore = GameMode->CurrentScore;
-        ThisScore.ScoreName = "Placeholder";
+    { 
+        /*
+         SaveGameInstance->HighScores = HighScores;
+         UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
+         
         UHighScoreSaveGame *SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("HighScoresSaveSlot"), 0));
         if (!SaveGameInstance)
         {
             SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::CreateSaveGameObject(UHighScoreSaveGame::StaticClass()));
+            SaveGameInstance->HighScores.Empty();
         }
         HighScores = SaveGameInstance->HighScores;
         
         HighScores.Sort([](const FScoreStruct &A, const FScoreStruct &B)
                         { return A.RecordedScore > B.RecordedScore; });
         const int32 MaxScores = 10;
+
         if (HighScores.Num() > MaxScores)
         {
             HighScores.RemoveAt(MaxScores, HighScores.Num() - MaxScores, true);
-        }
-        SaveGameInstance->HighScores = HighScores;
-        UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
-        */
-       HighScores.Add(ThisScore);
+        }*/
+        ThisScore.RecordedScore = GameMode->CurrentScore;
+        ThisScore.ScoreName = "Placeholder";
+        HighScores.Add(ThisScore);
+        
         if (HighScoreList)
         {
             HighScoreList->PopulateHighScores(HighScores);
@@ -81,4 +85,5 @@ void AEHPlayerController::UpdateHighScores()
 void AEHPlayerController::OnGameOver()
 {
 UpdateHighScores();
+GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::UpdateHighScores, 5,false);
 }

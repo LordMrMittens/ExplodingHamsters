@@ -41,4 +41,7 @@ private:
 
 	UFUNCTION()
 	void OnGameOver();
+
+	FTimerHandle EndDelayHandle;
+	
 };
