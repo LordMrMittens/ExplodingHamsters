@@ -17,11 +17,9 @@ void AEHPlayerController::BeginPlay()
 
     BigScoreWidget = Cast<UScoreWidget>(CreateWidget(this, BigScoreWidgetClass, FName("BigScoreWidget")));
 
-    HighScoreList = Cast<UHighScoresWidget>(CreateWidget(this, HighScoreWidgetClass, FName("HighScoreWidget")));
-
     ShowPanel(ScoreWidget);
 
-        AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
+    AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
     if (GameMode)
     {
         GameMode->OnGameOver.AddDynamic(this, &AEHPlayerController::OnGameOver);
@@ -46,14 +44,12 @@ void AEHPlayerController::HidePanel(UUserWidget *_Panel)
 
 void AEHPlayerController::UpdateHighScores()
 {
-    FScoreStruct ThisScore;
     AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
     if (GameMode)
-    { 
-        /*
-         SaveGameInstance->HighScores = HighScores;
-         UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
-         
+    {
+        FScoreStruct ThisScore;
+        ThisScore.RecordedScore = GameMode->CurrentScore;
+        ThisScore.ScoreName = "Placeholder";
         UHighScoreSaveGame *SaveGameInstance = Cast<UHighScoreSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("HighScoresSaveSlot"), 0));
         if (!SaveGameInstance)
         {
@@ -61,29 +57,26 @@ void AEHPlayerController::UpdateHighScores()
             SaveGameInstance->HighScores.Empty();
         }
         HighScores = SaveGameInstance->HighScores;
-        
+        HighScores.Add(ThisScore);
         HighScores.Sort([](const FScoreStruct &A, const FScoreStruct &B)
                         { return A.RecordedScore > B.RecordedScore; });
         const int32 MaxScores = 10;
-
         if (HighScores.Num() > MaxScores)
         {
             HighScores.RemoveAt(MaxScores, HighScores.Num() - MaxScores, true);
-        }*/
-        ThisScore.RecordedScore = GameMode->CurrentScore;
-        ThisScore.ScoreName = "Placeholder";
-        HighScores.Add(ThisScore);
-        
+        }
+        HighScoreList = Cast<UHighScoresWidget>(CreateWidget(this, HighScoreWidgetClass, FName("HighScoreWidget")));
         if (HighScoreList)
         {
             HighScoreList->PopulateHighScores(HighScores);
             ShowPanel(HighScoreList);
         }
+        SaveGameInstance->HighScores = HighScores;
+        UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
     }
 }
 
 void AEHPlayerController::OnGameOver()
 {
-UpdateHighScores();
-GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::UpdateHighScores, 5,false);
+    GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::UpdateHighScores, 3, false);
 }

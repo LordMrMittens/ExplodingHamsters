@@ -14,7 +14,7 @@ void UHighScoresWidget::PopulateHighScores(TArray<struct FScoreStruct> AllScores
 
     for (FScoreStruct Score : AllScores)
     {
-        FString ScoreString = FString::Printf(TEXT("%d: %s - %d\n"), index, *Score.ScoreName, Score.RecordedScore);
+        FString ScoreString = FString::Printf(TEXT("%d: %s - %d"), index, *Score.ScoreName, Score.RecordedScore);
         ScoreEntries.Add(FText::FromString(ScoreString));
         index++;
     }
