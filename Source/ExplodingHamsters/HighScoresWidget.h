@@ -7,26 +7,16 @@
 #include "HighScoresWidget.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class EXPLODINGHAMSTERS_API UHighScoresWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-		public:
-	
-	UPROPERTY(EditAnywhere)
-	int32 NumberOfScores = 10;
-
-	
+public:
+	void PopulateHighScores(TArray<struct FScoreStruct> AllScores);
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* ScoresText;
-	
-	TArray<UTextBlock> AllTexts;
-
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TSubclassOf<UTextBlock> TextBlockClass;
-	
+	class UTextBlock *ScoresText;
 };

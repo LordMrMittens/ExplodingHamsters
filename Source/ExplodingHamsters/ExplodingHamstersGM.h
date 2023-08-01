@@ -55,18 +55,4 @@ protected:
 
 private:
 	void CheckPlayerReferences();
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UHighScoreSaveGame> SaveGameClass;
-
-	UPROPERTY(VisibleAnywhere)
-	TArray<struct FScoreStruct> HighScores;
-
-	void UpdateHighScores();
-	void GetHighScores();
-
-	bool bHasGameEnded = false;
-	bool bShouldRecordNewHighScore = true;
-
-	
 };
