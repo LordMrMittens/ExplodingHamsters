@@ -65,8 +65,5 @@ private:
 	void UpdateHighScores();
 	void GetHighScores();
 
-	bool bHasGameEnded = false;
-	bool bShouldRecordNewHighScore = true;
-
-	
+	void DisplayEndOfGame();
 };

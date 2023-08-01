@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "HighScoreSaveGame.h"
 #include "ScoreStruct.h"
+#include "HighScoresWidget.h"
 
 
 AExplodingHamstersGM::AExplodingHamstersGM()
@@ -17,7 +18,6 @@ void AExplodingHamstersGM::BeginPlay()
 {
     Super::BeginPlay();
     GetHighScores();
-    bShouldRecordNewHighScore = true;
 }
 
 void AExplodingHamstersGM::CheckPlayerReferences()
@@ -43,7 +43,7 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
 
     if (Score < CurrentScore && PlayerController != nullptr)
     {
-        PlayerController->ShowScoreUpdatePanel();
+        PlayerController->ShowPanel(PlayerController->BigScoreWidget);
         ScoreUpdatecounter += DeltaTime;
         if (ScoreUpdatecounter > ScoreUpdateSpeed)
         {
@@ -74,24 +74,19 @@ void AExplodingHamstersGM::ABoxIsMoving()
 
 void AExplodingHamstersGM::ABoxCompleted()
 {
-    PlayerController->HideScoreUpdatePanel();
+    PlayerController->HidePanel(PlayerController->BigScoreWidget);
     BoxCompletedMovement.Broadcast();
-    if( bHasGameEnded){
-        UpdateHighScores();
-    }
 }
 
 void AExplodingHamstersGM::OnGameIsOver()
 {
     OnGameOver.Broadcast();
-    bHasGameEnded = true;
-    
+    FTimerHandle EndOfGameHandle;
+    GetWorldTimerManager().SetTimer(EndOfGameHandle,this, &AExplodingHamstersGM::DisplayEndOfGame, 3,false);
 }
 
 void AExplodingHamstersGM::UpdateHighScores()
 {
-        if (bShouldRecordNewHighScore == true)
-    {
     FScoreStruct ThisScore;
     ThisScore.RecordedScore= this->CurrentScore;
     ThisScore.ScoreName= "Placeholder";
@@ -118,8 +113,8 @@ void AExplodingHamstersGM::UpdateHighScores()
     }
 
         UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("HighScoresSaveSlot"), 0);
-        bShouldRecordNewHighScore = false;
-    }
+
+    
 }
 
 void AExplodingHamstersGM::GetHighScores()
@@ -133,4 +128,10 @@ void AExplodingHamstersGM::GetHighScores()
     {
         UE_LOG(LogTemp, Error, TEXT("No high scores detected"));
     }
+}
+
+void AExplodingHamstersGM::DisplayEndOfGame()
+{
+    UpdateHighScores();
+    PlayerController->ShowPanel(PlayerController->HighScoreList);
 }

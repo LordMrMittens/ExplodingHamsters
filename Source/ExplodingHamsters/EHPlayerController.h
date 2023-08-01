@@ -7,29 +7,27 @@
 #include "EHPlayerController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class EXPLODINGHAMSTERS_API AEHPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	public:
-	class UScoreWidget* ScoreWidget;
-	UScoreWidget* BigScoreWidget;
-	void ShowScoreUpdatePanel();
-	void HideScoreUpdatePanel();
+public:
+	class UScoreWidget *ScoreWidget;
+	UScoreWidget *BigScoreWidget;
+	class UHighScoresWidget *HighScoreList;
+	void ShowPanel(UUserWidget* _Panel);
+	void HidePanel(UUserWidget* _Panel);
 
-	protected:
+protected:
 	virtual void BeginPlay() override;
 
-	private:
+private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;
-		UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
-
-	
-	
-
-	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UHighScoresWidget> HighScoreWidgetClass;
 };
