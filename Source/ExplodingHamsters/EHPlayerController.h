@@ -13,11 +13,16 @@ UCLASS()
 class EXPLODINGHAMSTERS_API AEHPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
 	public:
 	class UScoreWidget* ScoreWidget;
 	UScoreWidget* BigScoreWidget;
+	class UHighScoresWidget* HighScoresWidget;
+
 	void ShowScoreUpdatePanel();
 	void HideScoreUpdatePanel();
+	void ShowHighScoresPanel();
+	void HideHighScoresPanel();
 
 	protected:
 	virtual void BeginPlay() override;
@@ -25,8 +30,10 @@ class EXPLODINGHAMSTERS_API AEHPlayerController : public APlayerController
 	private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;
-		UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UHighScoresWidget> HighScoresWidgetClass;
 
 	
 	

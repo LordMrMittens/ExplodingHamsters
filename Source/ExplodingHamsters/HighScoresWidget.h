@@ -15,18 +15,11 @@ class EXPLODINGHAMSTERS_API UHighScoresWidget : public UUserWidget
 	GENERATED_BODY()
 
 		public:
-	
-	UPROPERTY(EditAnywhere)
-	int32 NumberOfScores = 10;
-
-	
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* ScoresText;
-	
-	TArray<UTextBlock> AllTexts;
 
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TSubclassOf<UTextBlock> TextBlockClass;
+	UFUNCTION()
+	void PopulateHighScores(TArray<struct FScoreStruct> AllScores);
 	
 };
