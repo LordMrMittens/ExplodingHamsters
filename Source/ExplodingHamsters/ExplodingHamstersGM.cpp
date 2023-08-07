@@ -5,6 +5,7 @@
 #include "ScoreWidget.h"
 #include "EHPlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameplayOptionsDataAsset.h"
 
 
 AExplodingHamstersGM::AExplodingHamstersGM()
@@ -14,6 +15,9 @@ AExplodingHamstersGM::AExplodingHamstersGM()
 void AExplodingHamstersGM::BeginPlay()
 {
     Super::BeginPlay();
+    if(GameplayData){
+        UE_LOG(LogTemp, Error, TEXT("Data: %f"), GameplayData->GameplayOptions.HamsterExplosionTimer);
+    }
 }
 
 void AExplodingHamstersGM::CheckPlayerReferences()

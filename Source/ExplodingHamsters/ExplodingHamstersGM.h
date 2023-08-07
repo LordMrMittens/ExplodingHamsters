@@ -50,6 +50,9 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FGameIsOver OnGameOver;
 
+	UPROPERTY(EditAnywhere)
+	class UGameplayOptionsDataAsset* GameplayData;
+
 protected:
 	virtual void BeginPlay() override;
 
