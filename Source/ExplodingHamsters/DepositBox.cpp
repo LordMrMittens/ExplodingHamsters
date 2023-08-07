@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Door.h"
 #include "Explosive.h"
+#include "GameplayOptionsDataAsset.h"
 
 // Sets default values
 ADepositBox::ADepositBox()
@@ -22,6 +23,9 @@ void ADepositBox::BeginPlay()
 	AExplodingHamstersGM* GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
 	if(GameMode!=nullptr){
 		GameMode->OnGameOver.AddDynamic(this, &ADepositBox::OnGameIsOver);
+		if(GameMode->GameplayData){
+			MaxHamsters = GameMode->GameplayData->GameplayOptions.MaxHamstersInDepositBox;
+		}
 	}
 	StartingLocation = GetActorLocation();
 	DepositBoxTrigger = FindComponentByClass<UDepositBoxTrigger>();

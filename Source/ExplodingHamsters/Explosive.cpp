@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Hamster.h"
 #include "ExplodingHamstersGM.h"
+#include "GameplayOptionsDataAsset.h"
 
 
 // Sets default values
@@ -19,19 +20,22 @@ AExplosive::AExplosive()
 void AExplosive::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorldTimerManager().SetTimer(ExplosionTimerHandle, this, &AExplosive::StartExploding, ExplosionTime, false);
+	
 
 	    GameMode = Cast<AExplodingHamstersGM>(GetWorld()->GetAuthGameMode());
         if (GameMode)
     {
         GameMode->BoxStartedMoving.AddDynamic(this, &AExplosive::OnBoxIsMoving);
         GameMode->BoxCompletedMovement.AddDynamic(this, &AExplosive::OnBoxStopped);
+		if(GameMode->GameplayData){
+			ExplosionTime = GameMode->GameplayData->GameplayOptions.HamsterExplosionTimer; //needs to be tidied and refactored
+		}
     }
     else
     {
         UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
     }
-
+	GetWorldTimerManager().SetTimer(ExplosionTimerHandle, this, &AExplosive::StartExploding, ExplosionTime, false);
 	OriginalScale = GetActorScale3D().X;
 	TimeElapsed = 0.f;
 	

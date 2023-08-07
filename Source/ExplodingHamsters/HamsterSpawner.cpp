@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "ExplodingHamstersGM.h"
 #include "HamsterSpawnPoint.h"
+#include "GameplayOptionsDataAsset.h"
 
 // Sets default values
 AHamsterSpawner::AHamsterSpawner()
@@ -25,7 +26,10 @@ void AHamsterSpawner::BeginPlay()
         GameMode->BoxStartedMoving.AddDynamic(this, &AHamsterSpawner::OnBoxIsMoving);
         GameMode->BoxCompletedMovement.AddDynamic(this, &AHamsterSpawner::OnBoxStopped);
 		GameMode->OnGameOver.AddDynamic(this, &AHamsterSpawner::OnGameIsOver);
-		UE_LOG(LogTemp, Error, TEXT("Gamemode is Assigned"));
+		if(GameMode->GameplayData){
+			MaxSpawnTime = GameMode->GameplayData->GameplayOptions.MaxHamsterSpawnDelay;
+			MinSpawnTime = GameMode->GameplayData->GameplayOptions.MinHamsterSpawnDelay;
+		}
     } else{
 		UE_LOG(LogTemp, Error, TEXT("Gamemode is null pointer"));
 	}

@@ -15,8 +15,8 @@ AExplodingHamstersGM::AExplodingHamstersGM()
 void AExplodingHamstersGM::BeginPlay()
 {
     Super::BeginPlay();
-    if(GameplayData){
-        UE_LOG(LogTemp, Error, TEXT("Data: %f"), GameplayData->GameplayOptions.HamsterExplosionTimer);
+    if(GameplayData == nullptr){
+        UE_LOG(LogTemp, Error, TEXT("No Gameplay data present in game mode"));
     }
 }
 
