@@ -29,6 +29,7 @@ void AExplosive::BeginPlay()
         GameMode->BoxCompletedMovement.AddDynamic(this, &AExplosive::OnBoxStopped);
 		if(GameMode->GameplayData){
 			ExplosionTime = GameMode->GameplayData->GameplayOptions.HamsterExplosionTimer; //needs to be tidied and refactored
+			UE_LOG(LogTemp, Error, TEXT("Gameplay Data timer : %f Exploding timer = %f"), GameMode->GameplayData->GameplayOptions.HamsterExplosionTimer, ExplosionTime);
 		}
     }
     else
