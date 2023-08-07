@@ -26,10 +26,15 @@ struct FGameplayOptions{
  * 
  */
 UCLASS()
-class EXPLODINGHAMSTERS_API UGameplayOptionsDataAsset : public UDataAsset
+class EXPLODINGHAMSTERS_API UGameplayOptionsDataAsset : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 	
-    UPROPERTY(EditAnywhere)
-    TArray<FGameplayOptions> GameplayOptionsArray;
+	public: 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FGameplayOptions GameplayOptions;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    FGameplayOptions DefaultGameplayOptions;
+
+	UGameplayOptionsDataAsset();
 };

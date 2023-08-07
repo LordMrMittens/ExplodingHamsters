@@ -3,3 +3,7 @@
 
 #include "GameplayOptionsDataAsset.h"
 
+
+UGameplayOptionsDataAsset::UGameplayOptionsDataAsset()
+{
+}
