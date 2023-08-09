@@ -26,6 +26,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void Explode();
+	void SpawnExplosion();
 	void StartExploding();
 	
 	UFUNCTION()

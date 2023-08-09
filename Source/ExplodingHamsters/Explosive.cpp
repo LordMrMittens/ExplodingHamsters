@@ -61,7 +61,7 @@ void AExplosive::Tick(float DeltaTime)
 void AExplosive::StartExploding(){
 	TArray<AActor*> AllHamsters;
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), TEXT("Hamster"), AllHamsters);
-	Explode();
+	SpawnExplosion();
 	for (AActor* HamsterActor : AllHamsters){
 		AExplosive* Explosive = Cast<AExplosive>(HamsterActor);
 		AHamster* Hamster = Cast<AHamster>(HamsterActor);
@@ -99,7 +99,14 @@ void AExplosive::OnBoxStopped()
 
 void AExplosive::Explode()
 {
-	if (ExplosionEffects)
+	float ExplosionTimer = FMath::RandRange(0.0f, 1.5f);
+	FTimerHandle RandomisedExplosionHandle;
+	GetWorldTimerManager().SetTimer(RandomisedExplosionHandle, this, &AExplosive::SpawnExplosion, ExplosionTimer, false);
+}
+
+void AExplosive::SpawnExplosion()
+{
+		if (ExplosionEffects)
 	{
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ExplosionEffects, GetActorLocation(), GetActorRotation());
 	}
