@@ -6,6 +6,8 @@
 #include "Hamster.h"
 #include "ExplodingHamstersGM.h"
 #include "GameplayOptionsDataAsset.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 
 // Sets default values
@@ -93,26 +95,30 @@ void AExplosive::OnBoxStopped()
 	{
 		GetWorldTimerManager().UnPauseTimer(ExplosionTimerHandle);
 	}
-
 }
 
 void AExplosive::Explode()
 {
-
-	UE_LOG(LogTemp, Error, TEXT("Actor %s Went Boom"), *GetActorNameOrLabel());
+	if (ExplosionEffects)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ExplosionEffects, GetActorLocation(), GetActorRotation());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Actor %s Went Boom without an effect"), *GetActorNameOrLabel());
+	}
 	this->Destroy();
 }
 
 // Called to bind functionality to input
-void AExplosive::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AExplosive::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
 bool AExplosive::IsCloseToExploding()
 {
-	return GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle)<DisplaySecondsBeforeExplosion;
+	return GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle) < DisplaySecondsBeforeExplosion;
 }
 
 void AExplosive::ShowExplosionFeedback()

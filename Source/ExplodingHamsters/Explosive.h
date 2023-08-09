@@ -61,4 +61,7 @@ private:
 	bool IsCloseToExploding();
 
 	void ShowExplosionFeedback();
+
+	UPROPERTY(EditAnywhere)
+	class UNiagaraSystem* ExplosionEffects;
 };
