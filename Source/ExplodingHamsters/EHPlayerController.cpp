@@ -9,6 +9,7 @@
 #include "HighScoresWidget.h"
 #include "ExplodingHamstersGM.h"
 #include "EndGameWidget.h"
+#include "PauseMenuWidget.h"
 
 void AEHPlayerController::BeginPlay()
 {
@@ -16,9 +17,14 @@ void AEHPlayerController::BeginPlay()
     HighScores.Empty();
     ScoreWidget = Cast<UScoreWidget>(CreateWidget(this, ScoreWidgetClass, FName("ScoreWidget")));
     BigScoreWidget = Cast<UScoreWidget>(CreateWidget(this, BigScoreWidgetClass, FName("BigScoreWidget")));
+    PauseMenuWidget = Cast<UPauseMenuWidget>(CreateWidget(this, PauseMenuClass, FName("PauseMenu")));
 
     ShowPanel(ScoreWidget);
-
+    ShowPanel(PauseMenuWidget);
+    if (PauseMenuWidget)
+    {
+        PauseMenuWidget->SetupPauseMenuWidget();
+    }
     AExplodingHamstersGM *GameMode = Cast<AExplodingHamstersGM>(UGameplayStatics::GetGameMode(GetWorld()));
     if (GameMode)
     {

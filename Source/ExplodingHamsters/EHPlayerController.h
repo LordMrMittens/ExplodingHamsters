@@ -18,6 +18,7 @@ public:
 	UScoreWidget *BigScoreWidget;
 	class UHighScoresWidget *HighScoreList;
 	class UEndGameWidget* EndGameWidget;
+	class UPauseMenuWidget* PauseMenuWidget;
 	void ShowPanel(UUserWidget* _Panel);
 	void HidePanel(UUserWidget* _Panel);
 	void UpdateHighScores(FText _ScoreName);
@@ -32,11 +33,12 @@ private:
 	TSubclassOf<UScoreWidget> BigScoreWidgetClass;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UEndGameWidget> EndGameWidgetClass;
-		UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<UHighScoresWidget> HighScoreWidgetClass;
-
-		UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UHighScoreSaveGame> SaveGameClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UPauseMenuWidget> PauseMenuClass;
 
 	UPROPERTY(VisibleAnywhere)
 	TArray<struct FScoreStruct> HighScores;
