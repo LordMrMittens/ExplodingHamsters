@@ -65,4 +65,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	class UNiagaraSystem* ExplosionEffects;
+
+		UPROPERTY(EditAnywhere)
+	class USoundBase* ExplosionSound;
 };

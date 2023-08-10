@@ -109,6 +109,7 @@ void AExplosive::SpawnExplosion()
 		if (ExplosionEffects)
 	{
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ExplosionEffects, GetActorLocation(), GetActorRotation());
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(),ExplosionSound, GetActorLocation());
 	}
 	else
 	{
