@@ -24,12 +24,14 @@ protected:
 public:
 	class ADepositBox *ThisDepositBox;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+	UPROPERTY(VisibleAnywhere)
 	TArray<AActor *> ContainedHamsters;
 	void ResetDepositBox();
 	void DestroyDepositBox();
 	void SetupDepositBox(int32 _MaxHamsters, ADepositBox *_DepositBox);
 
 	bool IsValidHamster(AActor *HamsterActor, class AExplosive *&DepositedHamster, bool &ShouldExplode);
+	bool bIsDestroyed = false;
 
 	UPROPERTY(BlueprintAssignable, Category = "Deposit Box")
 	FDepositBoxIsFullDelegate OnDepositBoxIsFull;

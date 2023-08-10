@@ -26,13 +26,14 @@ void UDepositBoxTrigger::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		if (IsValidHamster(Actor, Hamster, bShouldItExplode))
 		{
 
-			if (bShouldItExplode == false && ContainedHamsters.Contains(Actor) == false)
+			if (bShouldItExplode == false && ContainedHamsters.Contains(Actor) == false && bIsDestroyed == false)
 			{
 				ThisDepositBox->SetHamsterSlot(Hamster);
 				ContainedHamsters.Add(Actor);
 			}
 			else
 			{
+				bIsDestroyed = true;
 				Hamster->StartExploding();
 				DestroyDepositBox();
 			}
@@ -63,6 +64,7 @@ void UDepositBoxTrigger::DestroyDepositBox()
 			AExplosive *Explosive = Cast<AExplosive>(Actor);
 			if (Explosive != nullptr)
 			{
+				ContainedHamsters.Remove(Actor);
 				Explosive->Explode();
 			}
 		}

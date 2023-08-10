@@ -70,9 +70,7 @@ void AExplosive::StartExploding(){
 			{
 				Explosive->Explode();
 			}
-			
 		}
-
 	}
 	if (GameMode) {
 		GameMode->OnGameIsOver();

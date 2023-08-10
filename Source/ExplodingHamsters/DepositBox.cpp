@@ -135,13 +135,14 @@ void ADepositBox::MoveBox(FVector _MovementVelocity, FVector _StartingPoint)
 
 void ADepositBox::GameOverCount()
 {
+	if(DepositBoxTrigger->bIsDestroyed==false){
 		if (Door != nullptr)
 		{
 			Door->OpenDoor();
 		}
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;
-		bBoxIsReturning = false;
+		bBoxIsReturning = false;}
 }
 
 void ADepositBox::StartReturnMovement()
