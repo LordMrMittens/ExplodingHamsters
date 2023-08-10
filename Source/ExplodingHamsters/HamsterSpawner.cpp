@@ -62,7 +62,7 @@ void AHamsterSpawner::SpawnHamster()
 {
 	for (int32 i = 0; i < NumberOfHamstersToSpawn; i++)
 	{
-		int SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num() - 1);
+		int32 SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num() - 1);
 		HamsterSpawnLocations[SpawnLocationIndex]->SpawnHamster();
 	}
 
@@ -82,16 +82,19 @@ void AHamsterSpawner::SpawnHamster()
 void AHamsterSpawner::OnBoxIsMoving()
 {
 	GetWorldTimerManager().PauseTimer(SpawnTimerHandle);
+	GetWorldTimerManager().PauseTimer(AddSpawningHamsterHandle);
 }
 
 void AHamsterSpawner::OnBoxStopped()
 {
 	GetWorldTimerManager().UnPauseTimer(SpawnTimerHandle);
-	
+	GetWorldTimerManager().UnPauseTimer(AddSpawningHamsterHandle);
 }
 
 void AHamsterSpawner::OnGameIsOver()
 {
 	GetWorldTimerManager().PauseTimer(SpawnTimerHandle);
 	GetWorldTimerManager().ClearTimer(SpawnTimerHandle);
+	GetWorldTimerManager().PauseTimer(AddSpawningHamsterHandle);
+	GetWorldTimerManager().ClearTimer(AddSpawningHamsterHandle);
 }
