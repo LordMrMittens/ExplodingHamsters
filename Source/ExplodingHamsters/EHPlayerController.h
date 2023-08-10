@@ -26,6 +26,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+
 private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;

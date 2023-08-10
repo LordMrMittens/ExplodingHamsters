@@ -21,8 +21,10 @@ protected:
 	protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
     class UInputMappingContext* InputMapping;
-	    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
     class UInputAction* InputRightClick;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
+    class UInputAction* InputPause;
 
 public:	
 	// Called every frame
@@ -47,5 +49,7 @@ private:
 	bool bCanPickUp = true;
 
 	bool GetMouseWorldPosition(FVector &OutMouseLocation, FVector &OutMouseDirection);
+
+	void TogglePause();
 
 };

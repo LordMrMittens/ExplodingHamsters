@@ -11,6 +11,8 @@
 #include "Hamster.h"
 #include "HamAIController.h"
 #include "ExplodingHamstersGM.h"
+#include "EHPlayerController.h"
+#include "PauseMenuWidget.h"
 
 // Sets default values
 APlayerPawn::APlayerPawn()
@@ -132,6 +134,24 @@ bool APlayerPawn::GetMouseWorldPosition(FVector &OutMouseLocation, FVector &OutM
 	return true;
 }
 
+void APlayerPawn::TogglePause()
+{
+	UE_LOG(LogTemp, Error, TEXT("Paused"));
+	AEHPlayerController *EHPlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (EHPlayerController)
+	{
+		if (EHPlayerController->IsPaused())
+		{
+			EHPlayerController->HidePanel(EHPlayerController->PauseMenuWidget);
+			EHPlayerController->SetPause(false);
+		} else {
+			EHPlayerController->ShowPanel(EHPlayerController->PauseMenuWidget);
+			EHPlayerController->SetPause(true);
+			
+		}
+	}
+}
+
 // Called to bind functionality to input
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
@@ -151,6 +171,7 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponen
 	playerEIcomponent->BindAction(InputRightClick, ETriggerEvent::Started, this,  &APlayerPawn::OnPlayerClicked);
 	playerEIcomponent->BindAction(InputRightClick, ETriggerEvent::Triggered, this,  &APlayerPawn::DragHamster);
 	playerEIcomponent->BindAction(InputRightClick, ETriggerEvent::Completed, this,  &APlayerPawn::Release);
+	playerEIcomponent->BindAction(InputPause, ETriggerEvent::Started, this, &APlayerPawn::TogglePause);
 }
 
 void APlayerPawn::OnBoxIsMoving()

@@ -20,7 +20,6 @@ void AEHPlayerController::BeginPlay()
     PauseMenuWidget = Cast<UPauseMenuWidget>(CreateWidget(this, PauseMenuClass, FName("PauseMenu")));
 
     ShowPanel(ScoreWidget);
-    ShowPanel(PauseMenuWidget);
     if (PauseMenuWidget)
     {
         PauseMenuWidget->SetupPauseMenuWidget();
@@ -75,6 +74,7 @@ void AEHPlayerController::UpdateHighScores(FText _ScoreName)
         HighScoreList = Cast<UHighScoresWidget>(CreateWidget(this, HighScoreWidgetClass, FName("HighScoreWidget")));
         if (HighScoreList)
         {
+            HighScoreList->SetupWidget();
             HighScoreList->PopulateHighScores(HighScores);
             ShowPanel(HighScoreList);
         }

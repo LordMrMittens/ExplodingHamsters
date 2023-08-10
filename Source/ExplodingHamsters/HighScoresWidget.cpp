@@ -3,9 +3,17 @@
 
 #include "HighScoresWidget.h"
 #include "Components/TextBlock.h"
+#include "Components/Button.h"
 #include "ScoreStruct.h"
+#include "EHPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
-
+void UHighScoresWidget::SetupWidget()
+{
+    if(MenuButton!=nullptr){
+        MenuButton->OnClicked.AddDynamic(this, &UHighScoresWidget::ReturnToMainMenu);
+    }
+}
 void UHighScoresWidget::PopulateHighScores(TArray<struct FScoreStruct> AllScores)
 {
     TArray<FText> ScoreEntries;
@@ -23,3 +31,14 @@ void UHighScoresWidget::PopulateHighScores(TArray<struct FScoreStruct> AllScores
     ScoresText->SetText(ScoreList);
     
 }
+
+void UHighScoresWidget::ReturnToMainMenu()
+{
+            AEHPlayerController *EHPlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+    if (EHPlayerController)
+    {
+        UGameplayStatics::OpenLevel(GetWorld(), FName("MainMenu"));
+    }
+}
+
+

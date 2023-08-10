@@ -15,8 +15,14 @@ class EXPLODINGHAMSTERS_API UHighScoresWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	void SetupWidget();
 	void PopulateHighScores(TArray<struct FScoreStruct> AllScores);
+
+	UFUNCTION()
+	void ReturnToMainMenu();
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock *ScoresText;
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UButton* MenuButton;
 };
