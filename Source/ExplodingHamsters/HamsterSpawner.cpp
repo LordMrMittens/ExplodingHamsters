@@ -35,6 +35,7 @@ void AHamsterSpawner::BeginPlay()
 	}
 	HamsterSpawnTime = MaxSpawnTime;
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle,this,&AHamsterSpawner::SpawnHamster,HamsterSpawnTime,false);
+	GetWorldTimerManager().SetTimer(AddSpawningHamsterHandle, this, &AHamsterSpawner::AddHamsterToSpawn,AddSpawningHamsterTimer, true);
 	if(bSpawnTwoAtStart){
 		SpawnHamster();
 		SpawnHamster();
@@ -46,15 +47,35 @@ void AHamsterSpawner::BeginPlay()
 void AHamsterSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
+void AHamsterSpawner::AddHamsterToSpawn()
+{
+	if (NumberOfHamstersToSpawn < MaxNumberOfHamstersToSpawn)
+	{
+		NumberOfHamstersToSpawn++;
+		HamsterSpawnTime += (AmountToSpeedUp*5);
+	}
 }
 
 void AHamsterSpawner::SpawnHamster()
 {
-	int SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num()-1);
-	HamsterSpawnLocations[SpawnLocationIndex]->SpawnHamster();
+	for (int32 i = 0; i < NumberOfHamstersToSpawn; i++)
+	{
+		int SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num() - 1);
+		HamsterSpawnLocations[SpawnLocationIndex]->SpawnHamster();
+	}
 
-	HamsterSpawnTime = FMath::Max(MinSpawnTime, HamsterSpawnTime - .2f);
+	CurrentSpawns++;
+	if (CurrentSpawns >= SpawnsBeforeSpeedUp)
+	{
+		HamsterSpawnTime = FMath::Max(MinSpawnTime, HamsterSpawnTime - AmountToSpeedUp);
+		SpawningSpedUp += AmountToSpeedUp;
+		if(SpawningSpedUp >= ExtraSpawnSpawnsBeforeSpeedUpCounter){
+			SpawnsBeforeSpeedUp ++;
+		}
+		CurrentSpawns=0;
+	}
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AHamsterSpawner::SpawnHamster, HamsterSpawnTime, false);
 }
 

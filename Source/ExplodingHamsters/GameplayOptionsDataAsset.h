@@ -10,13 +10,13 @@ struct FGameplayOptions{
     GENERATED_USTRUCT_BODY()
  
     UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Hamster Explosions")
-    float HamsterExplosionTimer = 10.0f;
+    float HamsterExplosionTimer = 15.0f;
  
     UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Spawning")
-    float MaxHamsterSpawnDelay = 5.0f;
+    float MaxHamsterSpawnDelay = 3.0f;
  
     UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Spawning")
-    float MinHamsterSpawnDelay = 0.5f;
+    float MinHamsterSpawnDelay = 1.0f;
  
     UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Scoring")
     int32 MaxHamstersInDepositBox =10;

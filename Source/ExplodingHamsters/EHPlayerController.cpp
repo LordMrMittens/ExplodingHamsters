@@ -97,5 +97,5 @@ void AEHPlayerController::DisplayGameOverScreen()
 
 void AEHPlayerController::OnGameOver()
 {
-    GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::DisplayGameOverScreen, 5, false);
+    GetWorldTimerManager().SetTimer(EndDelayHandle, this, &AEHPlayerController::DisplayGameOverScreen, 6, false);
 }
