@@ -91,8 +91,9 @@ void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 			if (BoxServoSoundComponent == nullptr)
 			{
 				BoxServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), BoxServoSound, GetActorLocation());
-			}
-			BoxServoSoundComponent->Play();
+				BoxServoSoundComponent->Play();
+			} else{
+			BoxServoSoundComponent->Play();}
 		}
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;

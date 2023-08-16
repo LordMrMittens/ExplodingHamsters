@@ -58,4 +58,6 @@ protected:
 
 private:
 	void CheckPlayerReferences();
+	UPROPERTY(EditAnywhere)
+	TArray<USoundWave*> ScoringSounds;
 };

@@ -62,8 +62,9 @@ void ADoor::MoveDoor(FVector _TargetPosition)
 {
 	if(DoorServoSoundComponent ==nullptr){
 		DoorServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DoorServoSound, GetActorLocation());
-	}
-	DoorServoSoundComponent->Play();
+		DoorServoSoundComponent->Play();
+	}else{DoorServoSoundComponent->Play();}
+	
 	FVector NewPosition = FMath::VInterpTo(GetActorLocation(), _TargetPosition, GetWorld()->GetDeltaSeconds(), MovementSpeed);
 	SetActorLocation(NewPosition);
 	float DistanceToTarget = FVector::Dist(GetActorLocation(), _TargetPosition);

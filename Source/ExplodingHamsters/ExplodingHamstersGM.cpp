@@ -49,6 +49,10 @@ void AExplodingHamstersGM::Tick(float DeltaTime)
             Score++;
             ScoreUpdatecounter = 0.f;
             UpdateScore(0);
+            if(ScoringSounds.Num() >0){
+                int SoundIndex = FMath::RandRange(0, ScoringSounds.Num()-1);
+                UGameplayStatics::SpawnSoundAtLocation(GetWorld(), ScoringSounds[SoundIndex], FVector::ZeroVector);
+            }
         }
     }
 }
