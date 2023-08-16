@@ -86,14 +86,9 @@ void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 			Door->OpenDoor();
 		}
 		ExplodingHamstersGameMode->ABoxIsMoving();
-		if (BoxServoSound != nullptr) // check if sound is not already playing
+		if (BoxServoSound != nullptr)
 		{
-			if (BoxServoSoundComponent == nullptr)
-			{
 				BoxServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), BoxServoSound, GetActorLocation());
-				BoxServoSoundComponent->Play();
-			} else{
-			BoxServoSoundComponent->Play();}
 		}
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;

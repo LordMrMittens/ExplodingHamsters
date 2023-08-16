@@ -60,30 +60,21 @@ void ADoor::CloseDoor()
 
 void ADoor::MoveDoor(FVector _TargetPosition)
 {
-	if(DoorServoSoundComponent ==nullptr){
-		DoorServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DoorServoSound, GetActorLocation());
-		DoorServoSoundComponent->Play();
-	}else{DoorServoSoundComponent->Play();}
-	
 	FVector NewPosition = FMath::VInterpTo(GetActorLocation(), _TargetPosition, GetWorld()->GetDeltaSeconds(), MovementSpeed);
 	SetActorLocation(NewPosition);
 	float DistanceToTarget = FVector::Dist(GetActorLocation(), _TargetPosition);
-	if (DistanceToTarget<DistanceOffset)
+	if (DistanceToTarget < DistanceOffset)
 	{
 		if (_TargetPosition != StartingPosition)
 		{
 			FTimerHandle DoorCloseDelayTimerHandle;
 			GetWorldTimerManager().SetTimer(DoorCloseDelayTimerHandle, this, &ADoor::CloseDoor, CloseDelay, false);
 			bShouldMove = false;
-			
-			DoorServoSoundComponent->Stop();
 		}
 		else
 		{
 			bShouldMove = false;
 			bShouldReturn = false;
-			
-			DoorServoSoundComponent->Stop();
 		}
 	}
 }
