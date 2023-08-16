@@ -5,6 +5,7 @@
 #include "DepositBoxTrigger.h"
 #include "ExplodingHamstersGM.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/AudioComponent.h"
 #include "Door.h"
 #include "Explosive.h"
 #include "GameplayOptionsDataAsset.h"
@@ -85,6 +86,14 @@ void ADepositBox::OnDepositBoxIsFull(ADepositBox *DepositBox)
 			Door->OpenDoor();
 		}
 		ExplodingHamstersGameMode->ABoxIsMoving();
+		if (BoxServoSound != nullptr) // check if sound is not already playing
+		{
+			if (BoxServoSoundComponent == nullptr)
+			{
+				BoxServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), BoxServoSound, GetActorLocation());
+			}
+			BoxServoSoundComponent->Play();
+		}
 		bBoxIsEmptying = true;
 		bBoxIsMoving = true;
 		bBoxIsReturning = false;
@@ -120,6 +129,9 @@ void ADepositBox::MoveBox(FVector _MovementVelocity, FVector _StartingPoint)
 			bBoxIsMoving = false;
 			bBoxIsReturning = false;
 			ExplodingHamstersGameMode->ABoxCompleted();
+			if(BoxServoSoundComponent){
+				BoxServoSoundComponent->Stop();
+			}
 			}
 			else
 			{

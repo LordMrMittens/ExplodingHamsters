@@ -2,6 +2,8 @@
 
 
 #include "Door.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 ADoor::ADoor()
@@ -45,17 +47,23 @@ void ADoor::SetupDoor(FVector _OpeningSpeed, float _OpeningDistance, float _Move
 
 void ADoor::OpenDoor()
 {
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), DoorOpensSound, GetActorLocation());
 	bShouldMove = true;
 }
 
 void ADoor::CloseDoor()
 {
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), DoorClosesSound, GetActorLocation());
 	bShouldReturn = true;
 	bShouldMove = true;
 }
 
 void ADoor::MoveDoor(FVector _TargetPosition)
 {
+	if(DoorServoSoundComponent ==nullptr){
+		DoorServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DoorServoSound, GetActorLocation());
+	}
+	DoorServoSoundComponent->Play();
 	FVector NewPosition = FMath::VInterpTo(GetActorLocation(), _TargetPosition, GetWorld()->GetDeltaSeconds(), MovementSpeed);
 	SetActorLocation(NewPosition);
 	float DistanceToTarget = FVector::Dist(GetActorLocation(), _TargetPosition);
@@ -63,15 +71,18 @@ void ADoor::MoveDoor(FVector _TargetPosition)
 	{
 		if (_TargetPosition != StartingPosition)
 		{
-			
 			FTimerHandle DoorCloseDelayTimerHandle;
 			GetWorldTimerManager().SetTimer(DoorCloseDelayTimerHandle, this, &ADoor::CloseDoor, CloseDelay, false);
 			bShouldMove = false;
+			
+			DoorServoSoundComponent->Stop();
 		}
 		else
 		{
 			bShouldMove = false;
 			bShouldReturn = false;
+			
+			DoorServoSoundComponent->Stop();
 		}
 	}
 }

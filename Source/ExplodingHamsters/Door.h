@@ -40,4 +40,14 @@ private:
 	void MoveDoor(FVector _TargetPosition);
 	float DistanceOffset = 0.5f;
 
+	UPROPERTY(EditAnywhere)
+	class USoundWave* DoorOpensSound;
+	UPROPERTY(EditAnywhere)
+	class USoundWave* DoorClosesSound;
+
+	UPROPERTY(EditAnywhere)
+	class USoundWave* DoorServoSound;
+
+	class UAudioComponent* DoorServoSoundComponent;
+
 };

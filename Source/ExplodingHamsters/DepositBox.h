@@ -89,5 +89,10 @@ private:
 
 	TMap<USceneComponent*, AExplosive*> LocationsTMap;
 
+	UPROPERTY(EditAnywhere)
+	class USoundWave* BoxServoSound;
+
+	class UAudioComponent* BoxServoSoundComponent;
+
 	
 };
