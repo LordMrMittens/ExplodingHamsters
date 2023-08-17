@@ -54,7 +54,8 @@ void ADepositBox::BeginPlay()
 	for (USceneComponent* Location : HamsterLocations)
 	{
 		if(Location->ComponentTags.Contains("Slot")){
-			LocationsTMap.Add(Location, nullptr);
+			TPair<USceneComponent*, AExplosive*> Slot = TPair<USceneComponent*, AExplosive*>(Location, nullptr);
+			LocationsTMap.Add(Slot);
 		} else{
 			HamsterLocations.Remove(Location);
 		}
@@ -125,9 +126,6 @@ void ADepositBox::MoveBox(FVector _MovementVelocity, FVector _StartingPoint)
 			bBoxIsMoving = false;
 			bBoxIsReturning = false;
 			ExplodingHamstersGameMode->ABoxCompleted();
-			if(BoxServoSoundComponent){
-				BoxServoSoundComponent->Stop();
-			}
 			}
 			else
 			{
@@ -138,14 +136,19 @@ void ADepositBox::MoveBox(FVector _MovementVelocity, FVector _StartingPoint)
 			bBoxIsMoving = false;
 			GetWorldTimerManager().SetTimer(ReturnMovementDelayTimerHandle, this, &ADepositBox::StartReturnMovement, ReturnMovementDelay, false);
 			}
+			if (BoxServoSoundComponent)
+			{
+			BoxServoSoundComponent->Stop();
+			}
 		}
 }
 
 void ADepositBox::GameOverCount()
 {
-	if(DepositBoxTrigger->bIsDestroyed==false){
-		if (Door != nullptr)
+		if (DepositBoxTrigger->bIsDestroyed == false)
 		{
+			if (Door != nullptr)
+			{
 			Door->OpenDoor();
 		}
 		bBoxIsEmptying = true;
@@ -155,6 +158,10 @@ void ADepositBox::GameOverCount()
 
 void ADepositBox::StartReturnMovement()
 {
+			if (BoxServoSound != nullptr)
+		{
+				BoxServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), BoxServoSound, GetActorLocation());
+		}
 	bBoxIsMoving = true;
 	bBoxIsReturning = true;
 	bBoxIsEmptying = false;

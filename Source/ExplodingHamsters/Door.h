@@ -43,6 +43,11 @@ private:
 	UPROPERTY(EditAnywhere)
 	class USoundWave* DoorOpensSound;
 	UPROPERTY(EditAnywhere)
-	class USoundWave* DoorClosesSound;
+	USoundWave* DoorClosesSound;
+
+		UPROPERTY(EditAnywhere)
+	USoundWave* DoorServoSound;
+
+	class UAudioComponent* DoorServoSoundComponent;
 
 };

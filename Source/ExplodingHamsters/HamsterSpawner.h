@@ -27,6 +27,8 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Spawning | Spawning Locations")
 	TArray<AHamsterSpawnPoint *> HamsterSpawnLocations;
+	TArray<AHamsterSpawnPoint *> GetHamsterSpawnLocations();
+	AHamsterSpawnPoint* GetAvailableSpawnPoint(TArray<AHamsterSpawnPoint *> TakenSpawnPoints);
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Debug")

@@ -48,11 +48,17 @@ void ADoor::SetupDoor(FVector _OpeningSpeed, float _OpeningDistance, float _Move
 void ADoor::OpenDoor()
 {
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), DoorOpensSound, GetActorLocation());
+	if(DoorServoSound != nullptr){
+		DoorServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DoorServoSound, GetActorLocation());
+	}
 	bShouldMove = true;
 }
 
 void ADoor::CloseDoor()
 {
+		if(DoorServoSound != nullptr){
+		DoorServoSoundComponent = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DoorServoSound, GetActorLocation());
+	}
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), DoorClosesSound, GetActorLocation());
 	bShouldReturn = true;
 	bShouldMove = true;
@@ -75,6 +81,9 @@ void ADoor::MoveDoor(FVector _TargetPosition)
 		{
 			bShouldMove = false;
 			bShouldReturn = false;
+		}
+		if(DoorServoSoundComponent != nullptr){
+			DoorServoSoundComponent->Stop();
 		}
 	}
 }

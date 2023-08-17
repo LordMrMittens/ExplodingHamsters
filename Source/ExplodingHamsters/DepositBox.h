@@ -51,6 +51,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementDistance;
 
+	TPair<USceneComponent* ,AExplosive*> GetHamsterSlot();
+
 	UFUNCTION()
 	void OnDepositBoxIsFull(ADepositBox *DepositBox);
 
@@ -87,7 +89,7 @@ private:
 
 	TArray<USceneComponent*> HamsterLocations;
 
-	TMap<USceneComponent*, AExplosive*> LocationsTMap;
+	TArray<TPair<USceneComponent* ,AExplosive*>> LocationsTMap;
 
 	UPROPERTY(EditAnywhere)
 	class USoundWave* BoxServoSound;

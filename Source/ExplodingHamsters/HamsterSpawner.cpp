@@ -49,6 +49,8 @@ void AHamsterSpawner::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+
+
 void AHamsterSpawner::AddHamsterToSpawn()
 {
 	if (NumberOfHamstersToSpawn < MaxNumberOfHamstersToSpawn)
@@ -60,11 +62,12 @@ void AHamsterSpawner::AddHamsterToSpawn()
 
 void AHamsterSpawner::SpawnHamster()
 {
-	for (int32 i = 0; i < NumberOfHamstersToSpawn; i++)
+	TArray<AHamsterSpawnPoint *> LocationsToSpawn = GetHamsterSpawnLocations();
+	for (auto SpawnLocation : LocationsToSpawn)
 	{
-		int32 SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num() - 1);
-		HamsterSpawnLocations[SpawnLocationIndex]->SpawnHamster();
+		SpawnLocation->SpawnHamster();
 	}
+	
 
 	CurrentSpawns++;
 	if (CurrentSpawns >= SpawnsBeforeSpeedUp)
@@ -77,6 +80,25 @@ void AHamsterSpawner::SpawnHamster()
 		CurrentSpawns=0;
 	}
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &AHamsterSpawner::SpawnHamster, HamsterSpawnTime, false);
+}
+TArray<AHamsterSpawnPoint *> AHamsterSpawner::GetHamsterSpawnLocations()
+{
+	TArray<AHamsterSpawnPoint *> AvailableLocations;
+	for (int32 i = 0; i < NumberOfHamstersToSpawn; i++)
+	{
+		AvailableLocations.Add(GetAvailableSpawnPoint(AvailableLocations));
+	}
+
+	return AvailableLocations;
+}
+
+AHamsterSpawnPoint* AHamsterSpawner::GetAvailableSpawnPoint(TArray<AHamsterSpawnPoint *> TakenSpawnPoints)
+{
+	int32 SpawnLocationIndex = FMath::RandRange(0, HamsterSpawnLocations.Num() - 1);
+	if(TakenSpawnPoints.Contains(HamsterSpawnLocations[SpawnLocationIndex])){
+		return GetAvailableSpawnPoint(TakenSpawnPoints);
+	} 
+	return HamsterSpawnLocations[SpawnLocationIndex];
 }
 
 void AHamsterSpawner::OnBoxIsMoving()
