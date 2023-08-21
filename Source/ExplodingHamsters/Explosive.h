@@ -43,6 +43,7 @@ UPROPERTY(EditAnywhere)
 private:
 	FTimerHandle ExplosionTimerHandle;
 
+
 	class AExplodingHamstersGM* GameMode;
 
 	UPROPERTY(EditAnywhere, Category = "Explosion Feedcback")
@@ -71,6 +72,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UCountdownWidget> CountdownWidgetClass;
+	FTimerHandle CountdownFrequencyHandle;
+	float CountdownFrequency = 1.0f;
+	void ShowCountdown();
+	bool bHasShownCountdownOnce = false;
 
 	
 };

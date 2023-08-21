@@ -50,15 +50,16 @@ void AExplosive::BeginPlay()
 void AExplosive::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if(bIsInBox){
+	if (bIsInBox)
+	{
 		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
-		SetActorScale3D(FVector(OriginalScale,OriginalScale,OriginalScale));
+		GetWorldTimerManager().PauseTimer(CountdownFrequencyHandle);
+		SetActorScale3D(FVector(OriginalScale, OriginalScale, OriginalScale));
 	}
-	if(IsCloseToExploding() && GetWorldTimerManager().IsTimerPaused(ExplosionTimerHandle)==false){
-		
+	if (IsCloseToExploding() && GetWorldTimerManager().IsTimerPaused(ExplosionTimerHandle) == false)
+	{
 		ShowExplosionFeedback();
 	}
-
 }
 void AExplosive::StartExploding(){
 	TArray<AActor*> AllHamsters;
@@ -86,6 +87,7 @@ void AExplosive::OnBoxIsMoving()
 	if (bIsInBox == false)
 	{
 		GetWorldTimerManager().PauseTimer(ExplosionTimerHandle);
+		GetWorldTimerManager().PauseTimer(CountdownFrequencyHandle);
 	}
 }
 
@@ -94,6 +96,7 @@ void AExplosive::OnBoxStopped()
 	if (bIsInBox == false)
 	{
 		GetWorldTimerManager().UnPauseTimer(ExplosionTimerHandle);
+		GetWorldTimerManager().UnPauseTimer(CountdownFrequencyHandle);
 	}
 }
 
@@ -102,6 +105,7 @@ void AExplosive::Explode()
 	float ExplosionTimer = FMath::RandRange(0.0f, 1.5f);
 	FTimerHandle RandomisedExplosionHandle;
 	GetWorldTimerManager().SetTimer(RandomisedExplosionHandle, this, &AExplosive::SpawnExplosion, ExplosionTimer, false);
+	GetWorldTimerManager().ClearTimer(CountdownFrequencyHandle);
 }
 
 void AExplosive::SpawnExplosion()
@@ -131,14 +135,12 @@ bool AExplosive::IsCloseToExploding()
 
 void AExplosive::ShowExplosionFeedback()
 {
-	AEHPlayerController * PlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(),0));
-	if(PlayerController!= nullptr){
-	UCountdownWidget * CountdownWidget = Cast<UCountdownWidget>(CreateWidget(PlayerController, CountdownWidgetClass, TEXT("CD")));
-	if(CountdownWidget!=nullptr){
-		CountdownWidget->TimeRemainingText = (int32)GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle);
-		CountdownWidget->ExplodingHamster = this;
-		CountdownWidget->AddToViewport(0);
-	}}
+		if (!bHasShownCountdownOnce)
+		{
+			GetWorldTimerManager().SetTimer(CountdownFrequencyHandle, this, &AExplosive::ShowCountdown, CountdownFrequency, true);
+			ShowCountdown();
+			bHasShownCountdownOnce = true;
+		}
 	float DeltaTime = GetWorld()->GetDeltaSeconds();
 	TimeElapsed += DeltaTime;
 	float ScalingFactor = FMath::Sin(2 * PI * TimeElapsed * FeedbackFrequency);
@@ -146,3 +148,18 @@ void AExplosive::ShowExplosionFeedback()
     SetActorScale3D(FVector(CurrentScale));
 }
 
+void AExplosive::ShowCountdown()
+{
+	AEHPlayerController *PlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (PlayerController != nullptr)
+	{
+		FName WidgetName = FName(*FString::Printf(TEXT("CD_%s"), *GetActorNameOrLabel()));
+		UCountdownWidget *CountdownWidget = Cast<UCountdownWidget>(CreateWidget(PlayerController, CountdownWidgetClass, WidgetName));
+		if (CountdownWidget != nullptr)
+		{
+			CountdownWidget->TimeRemainingText = (int32)GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle) +1;
+			CountdownWidget->ExplodingHamster = this;
+			CountdownWidget->AddToViewport(0);
+		}
+	}
+}
