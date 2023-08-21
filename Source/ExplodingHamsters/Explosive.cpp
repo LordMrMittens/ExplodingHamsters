@@ -136,7 +136,7 @@ void AExplosive::ShowExplosionFeedback()
 	UCountdownWidget * CountdownWidget = Cast<UCountdownWidget>(CreateWidget(PlayerController, CountdownWidgetClass, TEXT("CD")));
 	if(CountdownWidget!=nullptr){
 		CountdownWidget->TimeRemainingText = (int32)GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle);
-		//CountdownWidget->ExplodingHamster = this;
+		CountdownWidget->ExplodingHamster = this;
 		CountdownWidget->AddToViewport(0);
 	}}
 	float DeltaTime = GetWorld()->GetDeltaSeconds();

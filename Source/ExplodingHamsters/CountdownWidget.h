@@ -18,7 +18,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	int32 TimeRemainingText;
 
-	//UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	//class AExplosive*  ExplodingHamster;
+	UPROPERTY(BlueprintReadWrite)
+	class AExplosive*  ExplodingHamster;
 	
 };
