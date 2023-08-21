@@ -9,6 +9,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "CountdownWidget.h"
+#include "EHPlayerController.h"
 
 
 // Sets default values
@@ -130,6 +131,14 @@ bool AExplosive::IsCloseToExploding()
 
 void AExplosive::ShowExplosionFeedback()
 {
+	AEHPlayerController * PlayerController = Cast<AEHPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(),0));
+	if(PlayerController!= nullptr){
+	UCountdownWidget * CountdownWidget = Cast<UCountdownWidget>(CreateWidget(PlayerController, CountdownWidgetClass, TEXT("CD")));
+	if(CountdownWidget!=nullptr){
+		CountdownWidget->TimeRemainingText = (int32)GetWorldTimerManager().GetTimerRemaining(ExplosionTimerHandle);
+		CountdownWidget->ExplodingHamster = this;
+		CountdownWidget->AddToViewport(0);
+	}}
 	float DeltaTime = GetWorld()->GetDeltaSeconds();
 	TimeElapsed += DeltaTime;
 	float ScalingFactor = FMath::Sin(2 * PI * TimeElapsed * FeedbackFrequency);

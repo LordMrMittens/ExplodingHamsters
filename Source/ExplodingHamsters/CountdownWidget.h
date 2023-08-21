@@ -16,7 +16,7 @@ class EXPLODINGHAMSTERS_API UCountdownWidget : public UUserWidget
 public:
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock * TimeRemainingText;
+	int32 TimeRemainingText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class AExplosive *  ExplodingHamster;
