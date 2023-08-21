@@ -68,4 +68,9 @@ private:
 
 		UPROPERTY(EditAnywhere)
 	class USoundWave* ExplosionSound;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UCountdownWidget> CountdownWidgetClass;
+
+	
 };

@@ -8,6 +8,7 @@
 #include "GameplayOptionsDataAsset.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "CountdownWidget.h"
 
 
 // Sets default values
