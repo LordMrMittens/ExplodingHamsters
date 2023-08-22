@@ -22,6 +22,8 @@ void ASpinner::BeginPlay()
 void ASpinner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+    FRotator DeltaRotation = RotationDirection * RotationSpeed * DeltaTime;
+    AddActorLocalRotation(DeltaRotation);
 
 }
 
