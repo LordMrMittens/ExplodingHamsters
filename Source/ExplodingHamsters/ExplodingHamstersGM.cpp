@@ -62,7 +62,7 @@ void AExplodingHamstersGM::UpdateScore(int32 _Score)
     if (ScoreWidget != nullptr && BigScoreWidget != nullptr)
     {
         FString ScoreText = FString::Printf(TEXT("Score: %d"), Score);
-        FString BigScoreTextUI = FString::Printf(TEXT("Hammies Defused: %d"), Score);
+        FString BigScoreTextUI = FString::Printf(TEXT("Hamsters Defused: %d"), Score);
         ScoreWidget->UpdateTextBlock(FText::FromString(ScoreText));
         BigScoreWidget->UpdateTextBlock(FText::FromString(BigScoreTextUI));
     }
